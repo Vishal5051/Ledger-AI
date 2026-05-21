@@ -31,6 +31,3 @@ lerna-debug.log*
 *.sln
 *.sw?
 
-# Temporary exclusion for initial commit
-Frontend/src/
-
