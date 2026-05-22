@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 const Home = () => {
     return (
         <div className="container py-5">
@@ -24,24 +25,32 @@ const Home = () => {
 
                 <div className="col-md-4">
                     <h4>1. Add Tools</h4>
-                    <p>Enter Cursor, ChatGPT, Claude and other tools you use.</p>
+                    <p>
+                        Enter Cursor, ChatGPT, Claude and other tools you use.
+                    </p>
                 </div>
 
                 <div className="col-md-4">
                     <h4>2. Analyze Spend</h4>
-                    <p>We calculate where you're overpaying or underusing plans.</p>
+                    <p>
+                        We calculate where you're overpaying or underusing plans.
+                    </p>
                 </div>
 
                 <div className="col-md-4">
                     <h4>3. Save Money</h4>
-                    <p>Get instant recommendations and estimated savings.</p>
+                    <p>
+                        Get instant recommendations and estimated savings.
+                    </p>
                 </div>
 
             </div>
 
             {/* FOOTER */}
             <div className="text-center mt-5 text-muted">
-                <small>Built for startups using AI tools daily 🚀</small>
+                <small>
+                    Built for startups using AI tools daily 🚀
+                </small>
             </div>
 
         </div>
