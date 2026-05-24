@@ -110,7 +110,23 @@ const SpendForm = () => {
           (p) => p.name === selectedPlan
         );
         if (matchingPlan) {
-          updated[index].spend = matchingPlan.price * seatCount;
+          const pricingModel = matchingPlan.pricingModel || "per-seat";
+          if (pricingModel === "flat") {
+            updated[index].spend = matchingPlan.price;
+          } else if (pricingModel === "usage") {
+            // Usage based API pricing prefill (based on estimated usecase tokens)
+            let tokens = 20000000; // Medium default
+            const currentUseCase = updated[index].useCase || "mixed";
+            if (currentUseCase === "coding") tokens = 60000000;
+            else if (currentUseCase === "research") tokens = 5000000;
+            else if (currentUseCase === "writing") tokens = 25000000;
+            else if (currentUseCase === "data") tokens = 40000000;
+            
+            updated[index].spend = parseFloat(((tokens / 1000) * matchingPlan.price).toFixed(2));
+          } else {
+            const billedSeats = Math.max(seatCount, matchingPlan.minSeats || 1);
+            updated[index].spend = matchingPlan.price * billedSeats;
+          }
         }
       }
     }
