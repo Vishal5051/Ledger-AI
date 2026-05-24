@@ -48,9 +48,36 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
 ---
 
 **Blockers / what I'm stuck on:**
-Right now I’m thinking about how to design the audit engine logic. I can collect all the data properly, but I still need to figure out a clean way to calculate savings, detect overuse of plans, and suggest cheaper alternatives without making the logic messy.
+I'm still thinking about the backend database configurations and structuring API endpoints to cleanly store and load user audits from MongoDB, but the frontend math is working very reliably now.
 
 ---
 
 **Plan for tomorrow:**
-Tomorrow I will start building the audit engine logic that calculates total spend, compares plan usage, and generates savings recommendations. I also want to start working on the results page UI so the output looks more like a real SaaS dashboard.
+Tomorrow I will focus on writing modular backend routes, hooking up Mongoose models, and persisting the audit data and lead capture entries.
+
+
+## Day 3 — 2026-05-24
+
+**Hours worked:** 5 hours
+
+**What I did:**
+- Built the core rule-based mathematical analysis engine in `Frontend/src/utils/auditEngine.js` that computes total spent vs. optimized spent, calculates net savings, and generates list of granular downgrades and recommendations.
+- Patched and refactored the audit calculation engine to strictly enforce non-linear vendor pricing constraints, minimum seat billing thresholds (e.g. 5-seat minimum for Claude Team, 2-seat for ChatGPT Team), and generate custom explainable business reasoning cards.
+- Integrated a comprehensive SaaS pricing audit framework including true expected spend derivations, multi-weighted selection scores (cost 50%, usage fit 30%, feature compatibility 20%), plan availability rules, and custom usage-based API calculations for Developer models (OpenAI, Anthropic, Gemini API).
+- Synced and enhanced the central `pricingData.js` dictionary by injecting `type`, `maxSeats`, `minSeats`, `isEnterpriseOnly`, `isPubliclyAvailable`, and custom `pricingModel` usage keys.
+- Developed a high-end, responsive results dashboard in `Result.jsx` showcasing monthly budgets, active seats count, and percentage charts of stack optimizations, styled with dynamic Credex Qualification gradient cards and verified Audit Confidence meters.
+- Built an advanced link-sharing system inside `Result.jsx` utilizing base64-encoded URL state payload tokens, enabling instant cross-user dashboard sharing without server query overhead.
+- Implemented lead-capture subscription gates to capture user names and emails, laying the groundwork for transactional reports.
+- Elevated typography by configuring Google Fonts "Outfit" and adding SEO descriptive meta headers to `index.html`.
+
+**What I learned:**
+- How to structure clean utility engines separate from React state hooks so mathematics remain highly testable.
+- Resolving loose matching rules in JS arrays by synchronizing strict attributes in configuration dictionaries.
+- State sharing through URL payload encodings as an efficient serverless sharing alternative.
+
+**Blockers / what I'm stuck on:**
+- The express server currently runs as a basic boilerplate. I will need to lay down mongoose schemas, MongoDB connectivity, and lead persistence routers in the next sprint.
+
+**Plan for tomorrow:**
+- Establish database models and set up the modular backend server endpoints for audits storage and lead collection.
+- Connect frontend Axios queries to save generated audit links on MongoDB and load shareable routes natively.
