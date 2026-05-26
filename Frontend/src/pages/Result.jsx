@@ -144,7 +144,7 @@ const Result = () => {
           </div>
           <h3 className="fw-bold mb-3" style={{ color: "var(--text-h)" }}>Fetching Audit Report</h3>
           <p className="text-muted m-0">
-            Connecting to secure servers to retrieve your shared AI spend audit report...
+            Connecting to secure servers to retrieve your shared LedgerAI cost audit report...
           </p>
         </div>
       </div>
@@ -159,13 +159,13 @@ const Result = () => {
           <div className="fs-1 mb-3">⚠️</div>
           <h3 className="fw-bold mb-3" style={{ color: "var(--text-h)" }}>No Audit Active</h3>
           <p className="text-muted mb-4">
-            We couldn't find any active spend audit configurations in your session or URL. Add your tools to start.
+            We couldn't find any active LedgerAI cost audit configurations in your session or URL. Add your tools to start.
           </p>
           <button
             onClick={() => navigate("/audit")}
             className="btn btn-primary btn-lg w-100 fw-bold shadow-sm"
           >
-            🚀 Create Spend Audit
+            🚀 Create LedgerAI Audit
           </button>
         </div>
       </div>
@@ -287,7 +287,7 @@ const Result = () => {
             🎯 Audit Confidence: <span className="text-capitalize text-primary fw-bold">{report.confidence || "high"}</span>
           </span>
           <h2 className="display-6 fw-bold m-0" style={{ color: "var(--text-h)" }}>
-            AI Stack Audit Results
+            LedgerAI Stack Audit Results
           </h2>
           <p className="text-muted m-0 mt-1">
             Analyzing stack optimization parameters for a team of <strong>{auditData.teamSize} seats</strong>.

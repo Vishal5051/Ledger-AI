@@ -217,7 +217,7 @@ app.post("/api/leads", async (req, res) => {
           <div class="container">
             <div class="header">
               <span class="badge">SaaS Spend Optimization</span>
-              <div class="logo">AI Spend Audit Results 💰</div>
+              <div class="logo">LedgerAI Cost Audit Results 💰</div>
               <p style="margin: 0; color: #94a3b8; font-size: 14px;">Telemetry-Verified Cost-Saving Report</p>
             </div>
             
@@ -273,7 +273,7 @@ app.post("/api/leads", async (req, res) => {
             
             <div class="footer">
               <p style="margin: 0 0 10px;">This audit is financially defensible and calculated strictly based on pricing guidelines.</p>
-              <p style="margin: 0;">&copy; 2026 Credex AI Spend Audit Engine. All rights reserved.</p>
+              <p style="margin: 0;">&copy; 2026 Credex LedgerAI Cost Audit Engine. All rights reserved.</p>
             </div>
           </div>
         </body>

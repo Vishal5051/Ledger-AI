@@ -35,7 +35,7 @@ const NotFound = () => {
           
           {/* Subtle footer */}
           <div className="text-muted mt-4">
-            <small>AI Spend Audit 💰</small>
+            <small>LedgerAI 💰</small>
           </div>
         </div>
       </div>

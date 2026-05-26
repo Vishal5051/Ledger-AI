@@ -374,7 +374,7 @@ const SpendForm = () => {
                 </div>
                 <div className="col-md-6 text-md-end">
                   <button type="submit" className="btn btn-primary btn-lg px-5 fw-bold shadow-sm">
-                    🚀 Run AI Spend Audit
+                    🚀 Run LedgerAI Audit
                   </button>
                 </div>
               </div>
