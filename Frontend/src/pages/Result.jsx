@@ -269,180 +269,258 @@ const Result = () => {
   };
 
   return (
-    <div className="container py-5 text-start" style={{ maxWidth: "1100px" }}>
+    <div className="container py-5 text-start" style={{ maxWidth: "1150px" }}>
       
       {/* HEADER SECTION */}
-      <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-start mb-5 gap-4">
         <div>
-          <span className="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill fw-semibold mb-2 d-inline-block">
-            {isSharedView ? "🔗 Shared Workspace Report" : "📊 Real-Time Telemetry Report"}
-          </span>
-          {report.isCredexQualified && (
-            <span className="badge text-white px-3 py-2 rounded-pill fw-bold mb-2 d-inline-block ms-md-2" 
-                  style={{ background: "linear-gradient(135deg, #aa3bff 0%, #c084fc 100%)", boxShadow: "0 0 10px rgba(170, 59, 255, 0.3)" }}>
-              🚀 Credex Qualified Startup ($500+/mo savings)
+          <div className="d-flex flex-wrap gap-2 mb-3">
+            <span className="mono-tag" style={{ border: "1px solid var(--accent-border)", color: "var(--accent)", background: "var(--accent-bg)" }}>
+              {isSharedView ? "🔗 Shared Workspace Report" : "📊 Real-Time Telemetry"}
             </span>
-          )}
-          <span className="badge bg-light text-dark border px-3 py-2 rounded-pill fw-semibold mb-2 d-inline-block ms-md-2">
-            🎯 Audit Confidence: <span className="text-capitalize text-primary fw-bold">{report.confidence || "high"}</span>
-          </span>
-          <h2 className="display-6 fw-bold m-0" style={{ color: "var(--text-h)" }}>
-            LedgerAI Stack Audit Results
-          </h2>
-          <p className="text-muted m-0 mt-1">
-            Analyzing stack optimization parameters for a team of <strong>{auditData.teamSize} seats</strong>.
+            {report.isCredexQualified && (
+              <span className="mono-tag" 
+                    style={{ 
+                      background: "linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(192, 132, 252, 0.1) 100%)", 
+                      border: "1px solid rgba(168, 85, 247, 0.4)", 
+                      color: "#c084fc",
+                      boxShadow: "0 0 12px rgba(168, 85, 247, 0.15)" 
+                    }}>
+                🚀 Credex Startup Approved (Savings {" > "} $500/mo)
+              </span>
+            )}
+            <span className="mono-tag">
+              Confidence: {report.confidence || "high"}
+            </span>
+          </div>
+          <h1 className="fw-extrabold m-0 text-start" style={{ fontSize: "36px", letterSpacing: "-1px", lineHeight: "1.15" }}>
+            LedgerAI Stack Audit
+          </h1>
+          <p className="text-muted mt-2" style={{ fontSize: "15px" }}>
+            Analyzing cloud stack optimization parameters for a workspace of <strong className="text-dark-emphasis">{auditData.teamSize} active seats</strong>.
           </p>
         </div>
-        <div className="d-flex gap-2">
+        <div className="d-flex gap-3 align-self-md-center">
           {!isSharedView && (
             <button
               onClick={() => navigate("/audit")}
-              className="btn btn-outline-secondary d-flex align-items-center gap-2 fw-semibold px-3"
+              className="btn btn-outline-secondary d-flex align-items-center gap-2 fw-semibold px-4 py-2"
+              style={{
+                borderColor: "var(--border)",
+                color: "var(--text-h)",
+                background: "var(--card-bg)",
+                transition: "all 0.2s"
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.borderColor = "var(--accent)";
+                e.currentTarget.style.color = "var(--accent)";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.borderColor = "var(--border)";
+                e.currentTarget.style.color = "var(--text-h)";
+              }}
             >
               ✏️ Adjust Stack
             </button>
           )}
           <button
             onClick={handleCopyShareLink}
-            className={`btn ${shareCopied ? "btn-success" : "btn-primary"} d-flex align-items-center gap-2 fw-bold px-4`}
+            className={`btn ${shareCopied ? "btn-success" : "btn-primary"} d-flex align-items-center gap-2 fw-bold px-4 py-2`}
+            style={{
+              background: shareCopied ? "#10b981" : "var(--accent)",
+              borderColor: shareCopied ? "#10b981" : "var(--accent)",
+              boxShadow: shareCopied ? "0 4px 12px rgba(16, 185, 129, 0.25)" : "0 4px 12px rgba(79, 70, 229, 0.25)",
+              transition: "all 0.2s"
+            }}
           >
-            {shareCopied ? "✓ Link Copied!" : "🔗 Share Audit"}
+            {shareCopied ? "✓ Link Copied" : "🔗 Share Audit"}
           </button>
         </div>
       </div>
 
       {/* OVERALL RECOMMENDATION BANNER */}
       <div 
-        className="card border-0 p-4 mb-4 rounded-4 shadow-sm text-white"
+        className="card border-0 p-4 mb-5 rounded-4 shadow-lg text-white"
         style={{
           background: savingsPct > 30 
-            ? "linear-gradient(135deg, #7928CA 0%, #B800B8 100%)"
-            : "linear-gradient(135deg, #0061ff 0%, #60efff 100%)",
+            ? "linear-gradient(135deg, #1e1b4b 0%, #31106a 50%, #4c1d95 100%)"
+            : "linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)",
+          border: "1px solid rgba(255, 255, 255, 0.08) !important",
+          position: "relative",
+          overflow: "hidden"
         }}
       >
-        <div className="row align-items-center">
+        <div style={{
+          position: "absolute",
+          top: 0, right: 0, bottom: 0, left: 0,
+          backgroundImage: "radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%)",
+          pointerEvents: "none"
+        }} />
+
+        <div className="row align-items-center position-relative z-1">
           <div className="col-md-9 mb-3 mb-md-0">
-            <h5 className="fw-bold mb-1">💡 Lead Auditor Verdict</h5>
-            <p className="lead fw-semibold m-0 text-white-50" style={{ fontSize: "1.15rem" }}>
+            <div className="d-flex align-items-center gap-2 mb-2">
+              <span className="mono-tag" style={{ border: "1px solid rgba(255, 255, 255, 0.2)", color: "rgba(255, 255, 255, 0.9)", background: "rgba(255, 255, 255, 0.07)", fontSize: "10px" }}>
+                AUDITOR VERDICT
+              </span>
+            </div>
+            <p className="lead fw-medium m-0 text-white-50" style={{ fontSize: "1.15rem", lineHeight: "1.6", color: "#cbd5e1" }}>
               "{report.overallRecommendation}"
             </p>
           </div>
           {savingsPct > 0 && (
-            <div className="col-md-3 text-md-end">
-              <span className="display-5 fw-extrabold text-white">{savingsPct}%</span>
-              <div className="small fw-semibold text-white-50">WASTED BUDGET</div>
+            <div className="col-md-3 text-md-end border-start-md border-white-10">
+              <span className="display-4 fw-extrabold text-white" style={{ letterSpacing: "-1.5px" }}>{savingsPct}%</span>
+              <div className="small fw-semibold text-white-50" style={{ fontSize: "11px", letterSpacing: "1px" }}>WASTED BUDGET</div>
             </div>
           )}
         </div>
       </div>
 
       {/* METRIC CORE CARDS */}
-      <div className="row g-4 mb-4">
+      <div className="row g-4 mb-5">
         
         {/* Metric 1: Current Spend */}
         <div className="col-md-4">
-          <div className="card p-4 border-0 shadow-sm rounded-4 text-start h-100" style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid var(--border) !important" }}>
-            <h6 className="fw-semibold text-muted text-uppercase mb-2 small tracking-wider">Current Expected Spend</h6>
-            <h2 className="display-6 fw-bold m-0 text-danger" style={{ color: "#ef4444" }}>
+          <div className="card p-4 border-0 rounded-4 text-start h-100 visual-card">
+            <h6 className="fw-semibold text-muted text-uppercase mb-2" style={{ fontSize: "11px", letterSpacing: "1px" }}>Current Expected Spend</h6>
+            <h2 className="display-6 fw-bold m-0" style={{ color: "#ef4444", letterSpacing: "-1px" }}>
               ${totalMonthlySpend.toLocaleString()}/mo
             </h2>
-            <small className="text-muted mt-2 d-block font-monospace small">
-              Scenario range: ${spendRange.min.toLocaleString()} - ${spendRange.max.toLocaleString()}
-            </small>
+            <div className="mt-3 pt-3 border-top" style={{ borderColor: "var(--border) !important" }}>
+              <span className="text-muted font-monospace" style={{ fontSize: "12px" }}>
+                Scenario: ${spendRange.min.toLocaleString()} - ${spendRange.max.toLocaleString()}
+              </span>
+            </div>
           </div>
         </div>
 
         {/* Metric 2: Optimized Spend */}
         <div className="col-md-4">
-          <div className="card p-4 border-0 shadow-sm rounded-4 text-start h-100" style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid var(--border) !important" }}>
-            <h6 className="fw-semibold text-muted text-uppercase mb-2 small tracking-wider">Optimized Monthly Spend</h6>
-            <h2 className="display-6 fw-bold m-0 text-success" style={{ color: "#10b981" }}>
+          <div className="card p-4 border-0 rounded-4 text-start h-100 visual-card">
+            <h6 className="fw-semibold text-muted text-uppercase mb-2" style={{ fontSize: "11px", letterSpacing: "1px" }}>Optimized Monthly Spend</h6>
+            <h2 className="display-6 fw-bold m-0" style={{ color: "#10b981", letterSpacing: "-1px" }}>
               ${optimizedSpend.toLocaleString()}/mo
             </h2>
-            <small className="text-muted mt-2 d-block font-monospace small">
-              Scenario range: ${optimizedMin.toLocaleString()} - ${optimizedMax.toLocaleString()}
-            </small>
+            <div className="mt-3 pt-3 border-top" style={{ borderColor: "var(--border) !important" }}>
+              <span className="text-muted font-monospace" style={{ fontSize: "12px" }}>
+                Scenario: ${optimizedMin.toLocaleString()} - ${optimizedMax.toLocaleString()}
+              </span>
+            </div>
           </div>
         </div>
 
         {/* Metric 3: Net Monthly Savings */}
         <div className="col-md-4">
-          <div className="card p-4 border-0 shadow-lg rounded-4 text-start h-100" 
+          <div className="card p-4 border-0 rounded-4 text-start h-100 visual-card" 
                style={{ 
-                 background: "rgba(170, 59, 255, 0.08)", 
-                 border: "2px dashed var(--accent) !important",
-                 boxShadow: "0 10px 30px rgba(170, 59, 255, 0.1)"
+                 background: "var(--accent-bg)", 
+                 border: "1px solid var(--accent-border)",
+                 boxShadow: "0 10px 30px rgba(99, 102, 241, 0.05)"
                }}>
-            <h6 className="fw-bold text-uppercase mb-2 small tracking-wider" style={{ color: "var(--accent)" }}>Net Monthly Savings</h6>
-            <h2 className="display-5 fw-extrabold m-0" style={{ color: "var(--accent)" }}>
+            <h6 className="fw-bold text-uppercase mb-2" style={{ color: "var(--accent)", fontSize: "11px", letterSpacing: "1px" }}>Net Monthly Savings</h6>
+            <h2 className="display-5 fw-extrabold m-0" style={{ color: "var(--accent)", letterSpacing: "-1.5px" }}>
               ${totalEstimatedSavings.toLocaleString()}/mo
             </h2>
-            <small className="text-muted mt-2 d-block fw-semibold font-monospace small">
-              Projected: ${savingsRange.min.toLocaleString()} - ${savingsRange.max.toLocaleString()}/mo
-            </small>
+            <div className="mt-3 pt-3 border-top" style={{ borderColor: "var(--accent-border) !important" }}>
+              <span className="font-monospace fw-semibold" style={{ color: "var(--accent)", fontSize: "12px" }}>
+                Projected: ${savingsRange.min.toLocaleString()} - ${savingsRange.max.toLocaleString()}/mo
+              </span>
+            </div>
           </div>
         </div>
 
       </div>
 
       {/* SAVINGS PROGRESS BAR GRAPHICS */}
-      <div className="card p-4 shadow-sm border-0 rounded-4 mb-5" style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid var(--border) !important" }}>
-        <h5 className="fw-bold mb-3" style={{ color: "var(--text-h)" }}>📉 Allocation Optimization breakdown</h5>
-        <div className="progress rounded-pill mb-3" style={{ height: "35px" }}>
+      <div className="card p-4 border-0 rounded-4 mb-5 visual-card">
+        <div className="d-flex align-items-center justify-content-between mb-3">
+          <h5 className="fw-bold m-0" style={{ color: "var(--text-h)", fontSize: "16px" }}>
+            Allocation Optimization Breakdown
+          </h5>
+          <span className="mono-tag" style={{ border: "1px solid var(--accent-border)", color: "var(--accent)" }}>
+            Efficiency Index
+          </span>
+        </div>
+        <div className="progress rounded-pill mb-3" style={{ height: "16px", background: "var(--code-bg)" }}>
           {savingsPct > 0 ? (
             <>
               <div 
-                className="progress-bar bg-success d-flex align-items-center justify-content-center fw-bold fs-6" 
+                className="progress-bar d-flex align-items-center justify-content-center fw-bold text-white" 
                 role="progressbar" 
-                style={{ width: `${100 - savingsPct}%`, background: "var(--accent) !important" }}
+                style={{ 
+                  width: `${100 - savingsPct}%`, 
+                  background: "linear-gradient(90deg, var(--accent) 0%, #6366f1 100%)",
+                  borderRadius: "50px 0 0 50px"
+                }}
                 aria-valuenow={100 - savingsPct} 
                 aria-valuemin="0" 
                 aria-valuemax="100"
-              >
-                {100 - savingsPct}% Optimized Stack
-              </div>
+              />
               <div 
-                className="progress-bar bg-danger d-flex align-items-center justify-content-center fw-bold fs-6" 
+                className="progress-bar d-flex align-items-center justify-content-center fw-bold text-white" 
                 role="progressbar" 
-                style={{ width: `${savingsPct}%`, background: "#ef4444 !important" }}
+                style={{ 
+                  width: `${savingsPct}%`, 
+                  background: "#ef4444",
+                  borderRadius: "0 50px 50px 0"
+                }}
                 aria-valuenow={savingsPct} 
                 aria-valuemin="0" 
                 aria-valuemax="100"
-              >
-                {savingsPct}% Wasted
-              </div>
+              />
             </>
           ) : (
             <div 
-              className="progress-bar bg-success w-100 d-flex align-items-center justify-content-center fw-bold fs-6" 
+              className="progress-bar w-100 d-flex align-items-center justify-content-center fw-bold text-white" 
               role="progressbar" 
+              style={{ background: "linear-gradient(90deg, #10b981 0%, #34d399 100%)", borderRadius: "50px" }}
               aria-valuenow="100" 
               aria-valuemin="0" 
               aria-valuemax="100"
-            >
-              100% Fully Optimized!
-            </div>
+            />
           )}
         </div>
-        <p className="text-muted small m-0">
-          * Redundancy ratio is computed against standard market pricing rules configured within <code>pricingData.js</code>.
-        </p>
+        <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mt-2">
+          <div className="d-flex gap-3 text-muted" style={{ fontSize: "13px" }}>
+            <span className="d-flex align-items-center gap-1.5">
+              <span className="d-inline-block rounded-circle" style={{ width: "8px", height: "8px", background: "var(--accent)" }} />
+              Optimized Stack ({100 - savingsPct}%)
+            </span>
+            {savingsPct > 0 && (
+              <span className="d-flex align-items-center gap-1.5">
+                <span className="d-inline-block rounded-circle" style={{ width: "8px", height: "8px", background: "#ef4444" }} />
+                Cost Leakages ({savingsPct}%)
+              </span>
+            )}
+          </div>
+          <p className="text-muted small m-0">
+            * Computed against rules configured within <code className="p-1 px-2">pricingData.js</code>.
+          </p>
+        </div>
       </div>
 
       {/* PORTFOLIO BREAKDOWN */}
-      <div className="card p-4 shadow-sm border-0 rounded-4 mb-5" style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid var(--border)" }}>
-        <h5 className="fw-bold mb-3" style={{ color: "var(--text-h)" }}>📊 Audited AI Stack Portfolio</h5>
+      <div className="card p-4 border-0 rounded-4 mb-5 visual-card">
+        <div className="d-flex align-items-center justify-content-between mb-4">
+          <h5 className="fw-bold m-0" style={{ color: "var(--text-h)", fontSize: "16px" }}>
+            Audited AI Stack Portfolio
+          </h5>
+          <span className="mono-tag">
+            {report.tools.length} active integrations
+          </span>
+        </div>
         <div className="table-responsive">
-          <table className="table table-hover align-middle m-0" style={{ color: "var(--text)" }}>
+          <table className="table align-middle m-0" style={{ color: "var(--text)" }}>
             <thead>
-              <tr style={{ color: "var(--text-h)" }}>
-                <th>Tool</th>
-                <th>Focus</th>
-                <th>Seats</th>
-                <th>Current Plan</th>
-                <th>Expected Cost</th>
-                <th>Auditor Recommendation</th>
-                <th className="text-end">Status</th>
+              <tr style={{ color: "var(--text-h)", borderColor: "var(--border)" }}>
+                <th className="py-3 ps-0" style={{ fontWeight: "600", fontSize: "13px" }}>Tool</th>
+                <th className="py-3" style={{ fontWeight: "600", fontSize: "13px" }}>Focus</th>
+                <th className="py-3" style={{ fontWeight: "600", fontSize: "13px" }}>Seats</th>
+                <th className="py-3" style={{ fontWeight: "600", fontSize: "13px" }}>Current Plan</th>
+                <th className="py-3" style={{ fontWeight: "600", fontSize: "13px" }}>Expected Cost</th>
+                <th className="py-3" style={{ fontWeight: "600", fontSize: "13px" }}>Auditor Recommendation</th>
+                <th className="py-3 text-end pe-0" style={{ fontWeight: "600", fontSize: "13px" }}>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -450,27 +528,39 @@ const Result = () => {
                 const prettyName = pricingData[item.tool]?.name || item.tool;
                 const isOptimized = item.status === "optimized";
                 return (
-                  <tr key={idx} style={{ borderBottom: "1px solid var(--border)" }}>
-                    <td className="fw-bold" style={{ color: "var(--text-h)" }}>
+                  <tr key={idx} style={{ borderColor: "var(--border)" }}>
+                    <td className="fw-bold py-3 ps-0" style={{ color: "var(--text-h)", fontSize: "14px" }}>
                       {prettyName}
                     </td>
-                    <td>
-                      <span className="badge bg-secondary-subtle text-secondary text-capitalize px-2 py-1">{item.useCase}</span>
+                    <td className="py-3">
+                      <span className="badge text-capitalize px-2.5 py-1" style={{ background: "var(--code-bg)", color: "var(--text-h)", border: "1px solid var(--border)", fontSize: "11px" }}>
+                        {item.useCase}
+                      </span>
                     </td>
-                    <td>{item.seats}</td>
-                    <td>{item.plan}</td>
-                    <td className="fw-bold text-dark-emphasis">${item.spend.toLocaleString()}/mo</td>
-                    <td>
+                    <td className="py-3" style={{ fontSize: "14px" }}>{item.seats}</td>
+                    <td className="py-3" style={{ fontSize: "14px" }}>{item.plan}</td>
+                    <td className="fw-semibold py-3" style={{ color: "var(--text-h)", fontSize: "14px" }}>
+                      ${item.spend.toLocaleString()}/mo
+                    </td>
+                    <td className="py-3" style={{ fontSize: "13px" }}>
                       {isOptimized ? (
-                        <span className="text-warning small fw-semibold">
-                          🔄 Switch to {item.bestPlan} (Save ${item.potentialSavings}/mo)
+                        <span className="fw-semibold" style={{ color: "#ef4444" }}>
+                          🔄 Consolidation to {item.bestPlan} (Save ${item.potentialSavings}/mo)
                         </span>
                       ) : (
-                        <span className="text-success small fw-semibold">✓ Keep Current Plan</span>
+                        <span className="text-success fw-semibold">
+                          ✓ Keep Current Plan
+                        </span>
                       )}
                     </td>
-                    <td className="text-end">
-                      <span className={`badge ${isOptimized ? "bg-warning-subtle text-warning border border-warning-subtle" : "bg-success-subtle text-success border border-success-subtle"} px-3 py-1.5 rounded-pill fw-bold`}>
+                    <td className="text-end py-3 pe-0">
+                      <span className="badge px-3 py-1.5 rounded-pill fw-bold" 
+                            style={{ 
+                              background: isOptimized ? "rgba(239, 68, 68, 0.08)" : "rgba(16, 185, 129, 0.08)",
+                              color: isOptimized ? "#ef4444" : "#10b981",
+                              border: isOptimized ? "1px solid rgba(239, 68, 68, 0.2)" : "1px solid rgba(16, 185, 129, 0.2)",
+                              fontSize: "11px"
+                            }}>
                         {isOptimized ? "Optimizable" : "Optimal"}
                       </span>
                     </td>
@@ -486,41 +576,38 @@ const Result = () => {
         
         {/* RECOMMENDATION BLOCK (LEFT COLUMN) */}
         <div className="col-lg-7">
-          <h4 className="fw-bold mb-4" style={{ color: "var(--text-h)" }}>
+          <h4 className="fw-bold mb-4 d-flex align-items-center gap-2" style={{ color: "var(--text-h)", fontSize: "18px" }}>
             🛠️ Actionable Optimizations ({report.optimizations.length})
           </h4>
 
           {report.optimizations.length === 0 ? (
-            <div className="card p-5 text-center rounded-4 border-0 shadow-sm" style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid var(--border) !important" }}>
+            <div className="card p-5 text-center rounded-4 border-0 visual-card">
               <div className="fs-1 mb-2">🎉</div>
               <h5 className="fw-bold" style={{ color: "var(--text-h)" }}>Your Stack is Fully Optimized</h5>
-              <p className="text-muted m-0">
+              <p className="text-muted m-0 small">
                 Excellent! All your tools are on matching cost plans according to your seats allocation.
               </p>
             </div>
           ) : (
-            <div className="d-flex flex-column gap-3">
+            <div className="d-flex flex-column gap-4">
               {report.optimizations.map((opt, index) => {
-                // Find pretty name for tool
                 const displayToolName = pricingData[opt.tool]?.name || opt.tool;
                 
                 return (
                   <div 
                     key={index}
-                    className="card p-4 border shadow-sm rounded-4"
+                    className="card p-4 border-0 shadow-sm rounded-4 visual-card"
                     style={{
-                      background: "var(--bg)",
-                      borderColor: "var(--border)",
-                      borderLeft: "5px solid var(--accent) !important"
+                      borderLeft: "4px solid var(--accent) !important"
                     }}
                   >
-                    <div className="d-flex justify-content-between align-items-start mb-3">
+                    <div className="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
                       <div>
-                        <span className="badge bg-secondary-subtle text-secondary border px-2 py-1 rounded me-2 fw-semibold">
+                        <span className="mono-tag me-2">
                           {displayToolName}
                         </span>
-                        <span className="badge bg-warning-subtle text-warning border px-2 py-1 rounded fw-semibold">
-                          🔄 Consolidation Downgrade
+                        <span className="mono-tag" style={{ color: "#ef4444", border: "1px solid rgba(239, 68, 68, 0.25)" }}>
+                          REDUNDANCY DOWNGRADE
                         </span>
                       </div>
                       <div className="fw-extrabold fs-5" style={{ color: "var(--accent)" }}>
@@ -528,20 +615,21 @@ const Result = () => {
                       </div>
                     </div>
                     
-                    <h5 className="fw-bold mb-2" style={{ color: "var(--text-h)" }}>
+                    <h5 className="fw-bold mb-2 text-start" style={{ color: "var(--text-h)", fontSize: "16px" }}>
                       Optimize plan for {displayToolName}
                     </h5>
                     
-                    <p className="text-muted small mb-3">
+                    <p className="text-muted small mb-4 text-start" style={{ lineHeight: "1.6" }}>
                       {opt.reasoning}
                     </p>
 
-                    <div className="bg-light p-3 rounded border border-light-subtle d-flex justify-content-between align-items-center">
-                      <div>
-                        <span className="text-muted small d-block">Recommended Action</span>
-                        <strong className="text-dark small">Switch seats to {opt.recommendedPlan} Tier</strong>
+                    <div className="p-3 rounded border d-flex justify-content-between align-items-center flex-wrap gap-3" 
+                         style={{ background: "var(--code-bg)", borderColor: "var(--border) !important" }}>
+                      <div className="text-start">
+                        <span className="text-muted small d-block" style={{ fontSize: "11px" }}>RECOMMENDED ACTION</span>
+                        <strong className="text-dark-emphasis small">Switch to {opt.recommendedPlan} Tier</strong>
                       </div>
-                      <span className="badge bg-success px-3 py-2 rounded-pill fw-bold">
+                      <span className="badge px-3 py-2 rounded-pill fw-bold text-white" style={{ background: "var(--accent)" }}>
                         Save ${opt.savings * 12}/yr
                       </span>
                     </div>
@@ -555,33 +643,32 @@ const Result = () => {
 
         {/* LEAD CAPTURE & persistence BOX (RIGHT COLUMN) */}
         <div className="col-lg-5">
-          <h4 className="fw-bold mb-4" style={{ color: "var(--text-h)" }}>
+          <h4 className="fw-bold mb-4 d-flex align-items-center gap-2" style={{ color: "var(--text-h)", fontSize: "18px" }}>
             📬 Export & Actions
           </h4>
 
           {/* Gated Lead Card */}
           <div 
-            className="card p-4 border-0 shadow-lg rounded-4 text-start mb-4"
+            className="card p-4 border-0 rounded-4 text-start mb-4 visual-card"
             style={{ 
-              background: "rgba(255, 255, 255, 0.05)",
-              border: "1px solid var(--accent-border) !important",
-              backgroundBlendMode: "overlay"
+              background: "linear-gradient(180deg, var(--card-bg) 0%, var(--code-bg) 100%)",
+              border: "1px solid var(--accent-border) !important"
             }}
           >
-            <h5 className="fw-bold d-flex align-items-center gap-2 mb-3" style={{ color: "var(--accent)" }}>
+            <h5 className="fw-bold d-flex align-items-center gap-2 mb-3" style={{ color: "var(--accent)", fontSize: "16px" }}>
               🚀 Lock In Your Savings Plan
             </h5>
             
             {isSubmitted ? (
               <div className="py-4 text-center">
                 <div className="display-4 mb-3">✉️</div>
-                <h5 className="fw-bold text-success">Report Successfully Sent!</h5>
-                <p className="text-muted small mb-3">
+                <h5 className="fw-bold text-success">Report Dispatched</h5>
+                <p className="text-muted small mb-4">
                   We've successfully emailed the full detailed spend report and optimization guide to <strong>{leadEmail}</strong>.
                 </p>
                 {emailPreviewUrl && (
                   <div className="mt-3 mb-2">
-                    <span className="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-2 rounded-pill fw-bold d-inline-block mb-3">
+                    <span className="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-2 rounded-pill fw-bold d-inline-block mb-3" style={{ fontSize: "11px" }}>
                       🧪 Testing Mail Preview Available!
                     </span>
                     <a 
@@ -599,23 +686,25 @@ const Result = () => {
                     setIsSubmitted(false);
                     setEmailPreviewUrl(null);
                   }}
-                  className="btn btn-outline-secondary btn-sm mt-3"
+                  className="btn btn-outline-secondary btn-sm mt-3 fw-semibold"
+                  style={{ fontSize: "12px" }}
                 >
                   Edit Email Address
                 </button>
               </div>
             ) : (
               <form onSubmit={handleLeadSubmit}>
-                <p className="text-muted small mb-4">
+                <p className="text-muted small mb-4" style={{ lineHeight: "1.6" }}>
                   Get a complete professional PDF audit containing detailed transition blueprints, customized checklists, and licensing consolidation matrices.
                 </p>
 
                 <div className="mb-3">
-                  <label htmlFor="leadName" className="form-label small fw-semibold text-muted">Full Name</label>
+                  <label htmlFor="leadName" className="form-label small fw-semibold text-muted" style={{ fontSize: "11px" }}>Full Name</label>
                   <input
                     type="text"
                     id="leadName"
-                    className="form-control"
+                    className="form-control py-2"
+                    style={{ background: "var(--bg)", border: "1px solid var(--border)", borderRadius: "8px", fontSize: "13px" }}
                     required
                     placeholder="e.g. Vishal Kumar"
                     value={leadName}
@@ -624,11 +713,12 @@ const Result = () => {
                 </div>
 
                 <div className="mb-4">
-                  <label htmlFor="leadEmail" className="form-label small fw-semibold text-muted">Work Email Address</label>
+                  <label htmlFor="leadEmail" className="form-label small fw-semibold text-muted" style={{ fontSize: "11px" }}>Work Email Address</label>
                   <input
                     type="email"
                     id="leadEmail"
-                    className="form-control"
+                    className="form-control py-2"
+                    style={{ background: "var(--bg)", border: "1px solid var(--border)", borderRadius: "8px", fontSize: "13px" }}
                     required
                     placeholder="e.g. vishal@company.com"
                     value={leadEmail}
@@ -639,7 +729,12 @@ const Result = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="btn btn-primary w-100 fw-bold py-3 shadow-sm"
+                  className="btn btn-primary w-100 fw-bold py-2.5 shadow-sm"
+                  style={{
+                    background: "var(--accent)",
+                    borderColor: "var(--accent)",
+                    boxShadow: "0 4px 12px rgba(79, 70, 229, 0.2)"
+                  }}
                 >
                   {isSubmitting ? (
                     <>
@@ -655,24 +750,26 @@ const Result = () => {
           </div>
 
           {/* Quick Share Copy Information Panel */}
-          <div className="card p-4 border-0 shadow-sm rounded-4 text-start" style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid var(--border) !important" }}>
-            <h6 className="fw-semibold text-muted mb-2">Workspace Shared Link</h6>
-            <p className="text-muted small mb-3">
+          <div className="card p-4 border-0 rounded-4 text-start visual-card">
+            <h6 className="fw-semibold text-muted mb-2" style={{ fontSize: "12px", letterSpacing: "0.5px" }}>Workspace Shared Link</h6>
+            <p className="text-muted small mb-3" style={{ lineHeight: "1.5" }}>
               Give this secure encoded link to other administrators or financial leads to view this exact configured dashboard.
             </p>
             <div className="input-group">
               <input
                 type="text"
-                className="form-control text-truncate text-muted small bg-light border-0"
+                className="form-control text-truncate text-muted small bg-light border-0 py-2.5"
+                style={{ fontSize: "12px", borderRadius: "8px 0 0 8px", background: "var(--code-bg) !important", border: "1px solid var(--border) !important" }}
                 readOnly
                 value={shareLinkUrl}
               />
               <button 
-                className="btn btn-outline-secondary" 
+                className="btn btn-outline-secondary px-3"
+                style={{ borderColor: "var(--border)", borderLeft: "none", borderRadius: "0 8px 8px 0", fontSize: "12px", fontWeight: "600" }}
                 type="button"
                 onClick={handleCopyShareLink}
               >
-                {shareCopied ? "Copied!" : "📋 Copy"}
+                {shareCopied ? "Copied" : "📋 Copy"}
               </button>
             </div>
           </div>

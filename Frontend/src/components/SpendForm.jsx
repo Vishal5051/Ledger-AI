@@ -172,33 +172,37 @@ const SpendForm = () => {
           <form onSubmit={handleAnalyze}>
             
             {/* GLOBAL INFORMATION CARD */}
-            <div className="card border-0 shadow-sm p-4 mb-4" style={{ background: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(10px)", border: "1px solid var(--border)" }}>
-              <h5 className="fw-bold mb-3 text-start" style={{ color: "var(--accent)" }}>
-                🏢 Company Workspace Profile
-              </h5>
-              <div className="row g-3">
+            <div className="card border-0 p-4 mb-4 rounded-4 shadow-sm" style={{ background: "var(--card-bg)", border: "1px solid var(--border) !important" }}>
+              <div className="d-flex align-items-center gap-2 mb-3">
+                <span className="mono-tag" style={{ border: "1px solid var(--accent)", color: "var(--accent)" }}>PROFILE // 01</span>
+                <h5 className="fw-bold m-0" style={{ color: "var(--text-h)" }}>Company Workspace Profile</h5>
+              </div>
+              
+              <div className="row g-4">
                 <div className="col-md-6 text-start">
-                  <label htmlFor="teamSize" className="form-label fw-semibold text-muted small">
+                  <label htmlFor="teamSize" className="form-label fw-bold text-muted small uppercase font-monospace">
                     Total Company Size (Seats)
                   </label>
                   <input
                     type="number"
                     id="teamSize"
-                    className="form-control form-control-lg border-2"
+                    className="form-control form-control-lg border"
+                    style={{ background: "var(--bg)", borderColor: "var(--border)", color: "var(--text-h)", borderRadius: "8px" }}
                     min="1"
                     value={teamSize}
                     onChange={(e) => setTeamSize(parseInt(e.target.value, 10) || 1)}
                   />
-                  <div className="form-text small">Used to detect over-provisioned plan seats.</div>
+                  <div className="form-text small text-muted">Used to detect over-provisioned plan seat thresholds.</div>
                 </div>
 
                 <div className="col-md-6 text-start">
-                  <label htmlFor="globalUseCase" className="form-label fw-semibold text-muted small">
-                    Primary Use Case
+                  <label htmlFor="globalUseCase" className="form-label fw-bold text-muted small uppercase font-monospace">
+                    Primary Use Case Focus
                   </label>
                   <select
                     id="globalUseCase"
-                    className="form-select form-select-lg border-2"
+                    className="form-select form-select-lg border"
+                    style={{ background: "var(--bg)", borderColor: "var(--border)", color: "var(--text-h)", borderRadius: "8px" }}
                     value={globalUseCase}
                     onChange={(e) => setGlobalUseCase(e.target.value)}
                   >
@@ -208,66 +212,78 @@ const SpendForm = () => {
                     <option value="research">🔍 Knowledge Search & Research</option>
                     <option value="mixed">🔄 Mixed Operations / General Productivity</option>
                   </select>
-                  <div className="form-text small">Helps map tool redundancies.</div>
+                  <div className="form-text small text-muted">Helps identify platform feature overlaps and redundancies.</div>
                 </div>
               </div>
             </div>
 
             {/* DYNAMIC TOOL ROWS CARD */}
-            <div className="card p-4 shadow-sm mb-4" style={{ border: "1px solid var(--border)" }}>
-              <div className="d-flex justify-content-between align-items-center mb-4">
-                <h4 className="fw-bold m-0" style={{ color: "var(--text-h)" }}>
-                  🛠️ Stack Configuration
-                </h4>
+            <div className="card p-4 border-0 rounded-4 shadow-sm mb-4" style={{ background: "var(--card-bg)", border: "1px solid var(--border) !important" }}>
+              <div className="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom" style={{ borderColor: "var(--border)" }}>
+                <div className="d-flex align-items-center gap-2">
+                  <span className="mono-tag" style={{ border: "1px solid var(--accent)", color: "var(--accent)" }}>STACK // 02</span>
+                  <h5 className="fw-bold m-0" style={{ color: "var(--text-h)" }}>SaaS Stack Configuration</h5>
+                </div>
+                
                 <button
                   type="button"
-                  className="btn btn-outline-primary d-flex align-items-center gap-2 fw-semibold px-4"
+                  className="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 fw-semibold px-3 py-2"
                   onClick={handleAddRow}
+                  style={{ border: "1px solid var(--accent)", color: "var(--accent)" }}
                 >
-                  <span>➕</span> Add Tool
+                  <span>➕</span> Add Tool Row
                 </button>
               </div>
 
               {errorMsg && (
-                <div className="alert alert-danger d-flex align-items-center gap-2" role="alert">
+                <div className="alert alert-danger d-flex align-items-center gap-2 small font-monospace" role="alert">
                   <span>⚠️</span> <div>{errorMsg}</div>
                 </div>
               )}
+
+              {/* Monospaced Table Header on Desktops */}
+              <div className="row g-2 d-none d-md-flex text-start mb-2 px-2 text-muted fw-bold font-monospace" style={{ fontSize: "11px", letterSpacing: "0.5px" }}>
+                <div className="col-md-3">AI TOOL</div>
+                <div className="col-md-3">ACTIVE PLAN</div>
+                <div className="col-md-2">SEAT ALLOC</div>
+                <div className="col-md-2">MONTHLY SPEND ($)</div>
+                <div className="col-md-2 text-end">USE CASE</div>
+              </div>
 
               {/* Dynamic Rows mapping */}
               {tools.map((row, index) => (
                 <div
                   key={index}
-                  className="card p-3 mb-3 border shadow-sm transition-hover"
+                  className="p-3 mb-3 border rounded-3 position-relative transition-all"
                   style={{
                     background: "var(--bg)",
                     borderColor: "var(--border)",
-                    transition: "transform 0.2s ease"
                   }}
                 >
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    <span className="badge px-3 py-2 fs-6 rounded-pill" style={{ background: "var(--accent-bg)", color: "var(--accent)", border: "1px solid var(--accent-border)" }}>
-                      Tool #{index + 1}
+                    <span className="badge px-3 py-1.5 rounded-pill font-monospace" style={{ background: "var(--accent-bg)", color: "var(--accent)", border: "1px solid var(--accent-border)", fontSize: "11px" }}>
+                      TOOL_ROW #{index + 1}
                     </span>
                     
                     {tools.length > 1 && (
                       <button
                         type="button"
-                        className="btn btn-outline-danger btn-sm d-flex align-items-center gap-1"
+                        className="btn btn-link text-danger p-0 text-decoration-none small font-monospace d-flex align-items-center gap-1"
                         onClick={() => handleRemoveRow(index)}
+                        style={{ fontSize: "12px" }}
                       >
-                        🗑️ Delete Row
+                        🗑️ Delete
                       </button>
                     )}
                   </div>
 
-                  <div className="row g-3 text-start">
+                  <div className="row g-2 text-start align-items-center">
                     
                     {/* 1. Tool Selection */}
-                    <div className="col-md-3">
-                      <label className="form-label small fw-semibold text-muted">AI Tool</label>
+                    <div className="col-md-3 col-12">
                       <select
-                        className="form-select border-2"
+                        className="form-select border"
+                        style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px" }}
                         value={row.tool}
                         onChange={(e) => handleToolChange(index, "tool", e.target.value)}
                       >
@@ -281,10 +297,10 @@ const SpendForm = () => {
                     </div>
 
                     {/* 2. Plan Selection */}
-                    <div className="col-md-3">
-                      <label className="form-label small fw-semibold text-muted">Active Plan</label>
+                    <div className="col-md-3 col-12">
                       <select
-                        className="form-select border-2"
+                        className="form-select border"
+                        style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px" }}
                         value={row.plan}
                         disabled={!row.tool}
                         onChange={(e) => handleToolChange(index, "plan", e.target.value)}
@@ -300,11 +316,11 @@ const SpendForm = () => {
                     </div>
 
                     {/* 3. Seats Selection */}
-                    <div className="col-md-2">
-                      <label className="form-label small fw-semibold text-muted">Seats</label>
+                    <div className="col-md-2 col-6">
                       <input
                         type="number"
-                        className="form-control border-2"
+                        className="form-control border"
+                        style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px" }}
                         min="1"
                         value={row.seats}
                         onChange={(e) =>
@@ -318,15 +334,15 @@ const SpendForm = () => {
                     </div>
 
                     {/* 4. Monthly Spend Input */}
-                    <div className="col-md-2">
-                      <label className="form-label small fw-semibold text-muted">Monthly Spend ($)</label>
+                    <div className="col-md-2 col-6">
                       <div className="input-group">
-                        <span className="input-group-text bg-light text-muted fw-semibold border-2">$</span>
+                        <span className="input-group-text border text-muted font-monospace" style={{ background: "var(--code-bg)", borderColor: "var(--border)", fontSize: "13px" }}>$</span>
                         <input
                           type="number"
-                          className="form-control border-2"
+                          className="form-control border"
+                          style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px" }}
                           min="0"
-                          placeholder="e.g. 20"
+                          placeholder="0.00"
                           value={row.spend}
                           onChange={(e) =>
                             handleToolChange(
@@ -340,10 +356,10 @@ const SpendForm = () => {
                     </div>
 
                     {/* 5. Tool Specific Use Case */}
-                    <div className="col-md-2">
-                      <label className="form-label small fw-semibold text-muted">Usage Focus</label>
+                    <div className="col-md-2 col-12">
                       <select
-                        className="form-select border-2"
+                        className="form-select border"
+                        style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px" }}
                         value={row.useCase}
                         onChange={(e) => handleToolChange(index, "useCase", e.target.value)}
                       >
@@ -361,20 +377,20 @@ const SpendForm = () => {
             </div>
 
             {/* LIVE TALLY / TOTALS PANEL */}
-            <div className="card p-4 border-0 mb-4 text-start" style={{ background: "rgba(170, 59, 255, 0.05)", border: "1px solid var(--accent-border) !important" }}>
+            <div className="card p-4 border-0 rounded-4 mb-4 text-start shadow-sm" style={{ background: "var(--accent-bg)", border: "1px solid var(--accent-border) !important" }}>
               <div className="row align-items-center">
-                <div className="col-md-6 mb-3 mb-md-0">
-                  <h6 className="fw-semibold text-muted m-0">Live Workspace Total</h6>
-                  <h3 className="fw-bold m-0" style={{ color: "var(--accent)" }}>
+                <div className="col-md-6 mb-3 mb-md-0 font-monospace">
+                  <span className="small text-muted uppercase tracking-wide">LIVE_LEDGER_TALLY</span>
+                  <h3 className="fw-bold m-0" style={{ color: "var(--accent)", letterSpacing: "-1px" }}>
                     ${totalSpend.toLocaleString()}/mo
                   </h3>
                   <small className="text-muted">
-                    Across {totalSeatsInTools} total seats in stack
+                    Consolidating {totalSeatsInTools} user seats across AI profiles
                   </small>
                 </div>
                 <div className="col-md-6 text-md-end">
-                  <button type="submit" className="btn btn-primary btn-lg px-5 fw-bold shadow-sm">
-                    🚀 Run LedgerAI Audit
+                  <button type="submit" className="btn btn-primary btn-lg px-5 fw-bold rounded-3 shadow" style={{ background: "var(--accent)", border: "0" }}>
+                    Run LedgerAI Audit
                   </button>
                 </div>
               </div>
