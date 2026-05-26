@@ -58,7 +58,7 @@ Tomorrow I will focus on writing modular backend routes, hooking up Mongoose mod
 
 ## Day 3 — 2026-05-24
 
-**Hours worked:** 5 hours
+**Hours worked:** 7 hours
 
 **What I did:**
 - Built the core rule-based mathematical analysis engine in `Frontend/src/utils/auditEngine.js` that computes total spent vs. optimized spent, calculates net savings, and generates list of granular downgrades and recommendations.
