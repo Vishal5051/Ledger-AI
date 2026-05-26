@@ -121,7 +121,6 @@ export const findBestPlan = (toolConfig, seats, currentPlan, useCase) => {
   });
 
   let bestPlan = currentPlan;
-  let optimizedCost = currentCost;
 
   for (const plan of candidates) {
     const planCost = calculatePlanCost(plan, seats);
@@ -133,13 +132,11 @@ export const findBestPlan = (toolConfig, seats, currentPlan, useCase) => {
     if (currentPlanType !== "free" && plan.type === "free") continue;
 
     // Rule B: Large teams (seats > 2) must stay on collaborative tiers (team / business / enterprise)
-    // Downgrading a team > 2 to an individual "pro" plan introduces critical feature loss (lacks unified workspace / SSO / joint billing)
     if (seats > 2 && currentPlan.type === "team" && plan.type === "pro") continue;
 
-    // Rule C: Downgrade is only recommended if it saves > 30% of baseline expected cost and has no critical feature loss
-    if (planCost < currentCost && savingsRatio >= 0.30) {
+    // Rule C: Downgrade is recommended if it saves cost and fits team parameters
+    if (planCost < currentCost) {
       bestPlan = plan;
-      optimizedCost = planCost;
       break; // Select the cheapest viable candidate that satisfies these criteria
     }
   }
@@ -165,14 +162,7 @@ export const generateOptimization = (toolName, currentPlan, bestPlan, seats, cur
   const prettyToolName = pricingData[toolName]?.name || toolName;
   const confidence = getPlanConfidence(currentPlan);
 
-  // Determine usage band description for API plans
-  let usageBandDesc = "";
-  if (currentPlan.pricingModel === "usage") {
-    const profile = getApiUsageProfile(currentSpend);
-    usageBandDesc = `(${profile.usageLevel} usage)`;
-  }
-
-  // Handle optimal state with zero savings (finance-honest verification)
+  // Handle optimal state with zero savings
   if (expectedSavings <= 0.01 || currentPlan.name === bestPlan.name) {
     return {
       tool: toolName,
@@ -188,11 +178,10 @@ export const generateOptimization = (toolName, currentPlan, bestPlan, seats, cur
     };
   }
 
-  // Define finance-safe uncertainty range bands based on pricing model
+  // Define finance-safe uncertainty range bands
   let minSavings = expectedSavings * 0.90;
   let maxSavings = expectedSavings * 1.10;
   if (confidence === "low") {
-    // API/Usage volatility has wider uncertainty bands (75% to 125% scenario bounds)
     minSavings = expectedSavings * 0.75;
     maxSavings = expectedSavings * 1.25;
   }
@@ -251,7 +240,14 @@ export const calculateAudit = ({
       isCredexQualified: false,
       confidence: "high",
       totalMonthlySpendRange: { min: 0, max: 0 },
-      totalEstimatedSavingsRange: { min: 0, max: 0 }
+      totalEstimatedSavingsRange: { min: 0, max: 0 },
+      
+      // Strict keys requested in Step 2 of user prompt
+      totalCurrentSpend: 0,
+      totalOptimizedSpend: 0,
+      totalSavings: 0,
+      savingsPercentage: 0,
+      recommendations: []
     };
   }
 
@@ -268,7 +264,12 @@ const runAuditEngine = (tools, teamSize, globalUseCase) => {
   let totalCurrentSeats = 0;
   const calculatedTools = [];
   const optimizations = [];
+  const finalRecommendations = [];
 
+  // Track active categories to check overlapping redundancy
+  const categoriesMap = {};
+
+  // Parse each tool entry to compute expected spend and execute cost rules
   for (const toolEntry of tools) {
     const toolName = toolEntry.tool;
     const planName = toolEntry.plan;
@@ -276,8 +277,8 @@ const runAuditEngine = (tools, teamSize, globalUseCase) => {
     const userSpend = parseFloat(toolEntry.spend) || 0;
     const useCase = toolEntry.useCase || "mixed";
 
-    // 1. Tool Configuration Lookup
     const toolConfig = pricingData[toolName];
+    const prettyToolName = toolConfig?.name || toolName;
     let currentPlan = null;
     let bestPlan = null;
     let usageTier = "unknown";
@@ -286,7 +287,6 @@ const runAuditEngine = (tools, teamSize, globalUseCase) => {
       currentPlan = toolConfig.plans.find(p => p.name === planName) || null;
     }
 
-    // 2. Deriving True Expected Spend Range
     const expectedSpend = currentPlan 
       ? calculatePlanCost(currentPlan, seats, userSpend) 
       : userSpend;
@@ -306,11 +306,24 @@ const runAuditEngine = (tools, teamSize, globalUseCase) => {
     let savingsRangeText = "$0 / month (fully optimized)";
     let potentialSavings = 0;
 
+    // Track useCase frequencies for redundancy checking
+    if (useCase !== "mixed") {
+      if (!categoriesMap[useCase]) {
+        categoriesMap[useCase] = [];
+      }
+      categoriesMap[useCase].push({
+        tool: toolName,
+        prettyName: prettyToolName,
+        spend: expectedSpend,
+        seats: seats
+      });
+    }
+
+    // Execute standard pricing optimizations
     if (toolConfig && currentPlan) {
       bestPlan = findBestPlan(toolConfig, seats, currentPlan, useCase);
       usageTier = getUsageTier(currentPlan, useCase);
 
-      // Generating structured optimization (or optimal state handling)
       const opt = generateOptimization(toolName, currentPlan, bestPlan, seats, expectedSpend, useCase);
       if (opt) {
         optStatus = opt.status;
@@ -320,6 +333,45 @@ const runAuditEngine = (tools, teamSize, globalUseCase) => {
         
         if (opt.status === "optimized" && opt.savings > 0) {
           optimizations.push(opt);
+          
+          // ADD RULE 2: PLAN DOWNGRADE RULE
+          finalRecommendations.push({
+            type: "DOWNGRADE",
+            tool: toolName,
+            title: `${prettyToolName} Plan Downgrade`,
+            description: `Downgrade subscription from ${currentPlan.name} to ${bestPlan.name}. The team size satisfies requirements for this lower pricing tier, leading to a savings of $${opt.savings.toFixed(2)}/mo.`,
+            monthlySavings: opt.savings
+          });
+        }
+      }
+
+      // ADD RULE 1: SEAT WASTE RULE
+      if (seats > teamSize && currentPlan.pricingModel === "per-seat") {
+        const excessSeats = seats - teamSize;
+        const seatSavings = excessSeats * currentPlan.price;
+        if (seatSavings > 0) {
+          finalRecommendations.push({
+            type: "SEAT_OPTIMIZATION",
+            tool: toolName,
+            title: `Excess Seat Allocation`,
+            description: `You are paying for ${seats} seats of ${prettyToolName} while your company workspace has only ${teamSize} active users. Reduce tool seats to match active user size of ${teamSize} and save $${seatSavings.toFixed(2)}/mo.`,
+            monthlySavings: seatSavings
+          });
+        }
+      }
+
+      // ADD RULE 4: UNUSED SEAT RULE (ghost seat minimum floor penalties)
+      if (currentPlan.minSeats && seats < currentPlan.minSeats) {
+        const floorSeatsPenalty = currentPlan.minSeats - seats;
+        const floorSavings = floorSeatsPenalty * currentPlan.price;
+        if (floorSavings > 0) {
+          finalRecommendations.push({
+            type: "COST_CUT",
+            tool: toolName,
+            title: `Ghost Seats Overhead`,
+            description: `You are paying for a minimum billing floor of ${currentPlan.minSeats} seats on ${prettyToolName} for only ${seats} active users. Downgrading or reallocating plan structures saves the ghost seat overhead of $${floorSavings.toFixed(2)}/mo.`,
+            monthlySavings: floorSavings
+          });
         }
       }
     }
@@ -346,19 +398,37 @@ const runAuditEngine = (tools, teamSize, globalUseCase) => {
     });
   }
 
-  // Calculate total savings ranges
-  const totalEstimatedSavings = optimizations.reduce(
-    (sum, opt) => sum + opt.savings,
+  // ADD RULE 3: TOOL REDUNDANCY RULE (overlapping categorization checks)
+  Object.keys(categoriesMap).forEach((categoryKey) => {
+    const list = categoriesMap[categoryKey];
+    if (list.length > 1) {
+      list.sort((a, b) => a.spend - b.spend);
+      for (let i = 0; i < list.length - 1; i++) {
+        const redundant = list[i];
+        finalRecommendations.push({
+          type: "REDUNDANCY",
+          tool: redundant.tool,
+          title: `Overlapping ${categoryKey.toUpperCase()} Integration`,
+          description: `We detected overlapping active ${categoryKey} assistants in your stack. Consolidate your licensing requirements by removing ${redundant.prettyName} to save $${redundant.spend.toFixed(2)}/mo.`,
+          monthlySavings: redundant.spend
+        });
+      }
+    }
+  });
+
+  // Calculate total savings compiled from recommendations
+  const totalEstimatedSavings = finalRecommendations.reduce(
+    (sum, opt) => sum + opt.monthlySavings,
     0
   );
   
-  // Blended Portfolio Confidence classification (Simple Rule)
+  // Classify Portfolio Confidence
   let confidence = "high";
   const hasLowConfidence = calculatedTools.some(item => item.confidence === "low");
   const hasMediumConfidence = calculatedTools.some(item => item.confidence === "medium");
   
   if (hasLowConfidence) {
-    confidence = "low"; // API presence automatically introduces wider uncertainty bounds
+    confidence = "low";
   } else if (hasMediumConfidence) {
     confidence = "medium";
   }
@@ -383,6 +453,7 @@ const runAuditEngine = (tools, teamSize, globalUseCase) => {
   const isCredexQualified = totalEstimatedSavings >= 500;
 
   return {
+    // Compatibility layout keys for Result.jsx
     totalMonthlySpend: parseFloat(totalMonthlySpend.toFixed(2)),
     totalEstimatedSavings: parseFloat(totalEstimatedSavings.toFixed(2)),
     totalCurrentSeats: totalCurrentSeats,
@@ -395,6 +466,13 @@ const runAuditEngine = (tools, teamSize, globalUseCase) => {
     totalMonthlySpendRange: {
       min: parseFloat(totalMonthlySpendMin.toFixed(2)),
       max: parseFloat(totalMonthlySpendMax.toFixed(2))
-    }
+    },
+    
+    // Explicit SaaS keys requested in Step 2 & 4
+    totalCurrentSpend: parseFloat(totalMonthlySpend.toFixed(2)),
+    totalOptimizedSpend: parseFloat((totalMonthlySpend - totalEstimatedSavings).toFixed(2)),
+    totalSavings: parseFloat(totalEstimatedSavings.toFixed(2)),
+    savingsPercentage: parseFloat(savingsPercentage.toFixed(2)),
+    recommendations: finalRecommendations
   };
 };

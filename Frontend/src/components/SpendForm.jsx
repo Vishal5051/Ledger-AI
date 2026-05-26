@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import pricingData from "../data/pricingData";
+import { calculatePlanCost } from "../utils/auditEngine";
 
 const SpendForm = () => {
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ const SpendForm = () => {
       updated[index].spend = "";
     }
 
-    // Auto-prefill the spend with: plan price * seats
+    // Auto-prefill the spend using calculatePlanCost from auditEngine
     if (field === "plan" || field === "seats" || (field === "tool" && value === "")) {
       const selectedTool = updated[index].tool;
       const selectedPlan = updated[index].plan;
@@ -110,23 +111,18 @@ const SpendForm = () => {
           (p) => p.name === selectedPlan
         );
         if (matchingPlan) {
-          const pricingModel = matchingPlan.pricingModel || "per-seat";
-          if (pricingModel === "flat") {
-            updated[index].spend = matchingPlan.price;
-          } else if (pricingModel === "usage") {
-            // Usage based API pricing prefill (based on estimated usecase tokens)
-            let tokens = 20000000; // Medium default
+          let customSpend = null;
+          if (matchingPlan.pricingModel === "usage") {
+            let tokens = 20000000;
             const currentUseCase = updated[index].useCase || "mixed";
             if (currentUseCase === "coding") tokens = 60000000;
             else if (currentUseCase === "research") tokens = 5000000;
             else if (currentUseCase === "writing") tokens = 25000000;
             else if (currentUseCase === "data") tokens = 40000000;
             
-            updated[index].spend = parseFloat(((tokens / 1000) * matchingPlan.price).toFixed(2));
-          } else {
-            const billedSeats = Math.max(seatCount, matchingPlan.minSeats || 1);
-            updated[index].spend = matchingPlan.price * billedSeats;
+            customSpend = parseFloat(((tokens / 1000) * matchingPlan.price).toFixed(2));
           }
+          updated[index].spend = calculatePlanCost(matchingPlan, seatCount, customSpend);
         }
       }
     }
