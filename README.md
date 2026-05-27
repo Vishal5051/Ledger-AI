@@ -33,8 +33,8 @@ LedgerAI is a SaaS platform that audits your team's AI‑tool subscriptions, ide
 ## ⚙️ Setup Guide
 ```bash
 # Clone the repo
-git clone https://github.com/Vishal5051/ai-ledger.git
-cd ai-ledger
+git clone https://github.com/Vishal5051/Ledger-AI.git
+cd Ledger-AI
 
 # Frontend
 cd Frontend

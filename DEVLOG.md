@@ -119,6 +119,7 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
   - **Engineered Hover & Focus Glowing Transitions**: Designed glowing transitions inside `App.css` so that on hover/focus, input and select fields smoothly highlight with a subtle Royal Indigo shadow and border accent.
   - **Restored Number Input Colors**: Refactored inputs style from shorthand `background` to `backgroundColor` to ensure numbers and placeholder texts remain highly visible and high-contrast on all devices.
   - **Elevated Auditing Works Section Visibility**: Upgraded the container wrapping the "How LedgerAI Auditing Works" pipeline from a transparent, blending background to a solid `var(--card-bg)` panel with a clean 3D drop-shadow (`box-shadow`), successfully separating the entire section from the page's off-white background without altering the inside step layouts.
+  - **Transited Repository Remote URLs**: Updated git remote configurations from `ai-ledger` to the renamed repository URL (`https://github.com/Vishal5051/Ledger-AI.git`) and updated all clone and install links in `README.md` and `Backend/config/db.js` accordingly.
 - **Polished Repository & Synchronized Remotes**: Finalized all documentation syncs and pushed clean commits to main.
 
 **What I learned:**
@@ -128,6 +129,7 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
 - Relying on CSS shorthand `background` style resets overrides specific styling rules like `background-image` (which holds Bootstrap's select arrow data URI), whereas `backgroundColor` leaves it perfectly intact.
 - Removing browser spinners on number inputs via CSS resets dramatically refines B2B SaaS input fields, replacing jarring native elements with responsive and clean text-like formatting.
 - Section visibility inside dark/light themes depends heavily on three-dimensional layering cues; using a distinct solid backing and smooth drop-shadow prevents sections from merging into the page base.
+- Standardizing remote URLs in git keeps clone guides (`README.md`) and database fallback routes sync'd, ensuring clean installations for developers.
 
 **Next steps:**
 - Validate final production build processes, environmental variable integrations, and ensure all console logs/unused parameters are purged.

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 let isDbConnected = false;
 
 const connectDB = async () => {
-  const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/ai-ledger";
+  const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/ledger-ai";
   try {
     await mongoose.connect(MONGO_URI);
     console.log("SUCCESS: Connected to MongoDB for Lead Captures.");
