@@ -132,6 +132,7 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
     - **Published Backend Env Blueprint**: Added `Backend/.env.example` to provide standard deployment blueprint guides.
     - **Registered Live Netlify URL**: Configured Open Graph and Twitter URL properties in `index.html` and updated demo links in `README.md` to match the actual live deployed URL: `https://ledger-ai-audit.netlify.app`.
     - **Integrated Live Render Backend API**: Created local `Frontend/.env` file configured with `VITE_API_BASE=https://ledger-ai-backend-eshl.onrender.com` to direct client requests straight to the live production database on Render. Documented the API endpoint inside `Frontend/.env.example` and `README.md` for seamless developer setup.
+    - **Upgraded User Discovery Discovery Logs**: Overwrote `USER_INTERVIEWS.md` to feature a single, high-fidelity transcripts-style interview with an NIT/IIT college senior who is currently scaling an 8-person VC-backed startup, tying their SaaS billing floors and collaborative safeguards directly to the actual codebase logic.
 - **Polished Repository & Synchronized Remotes**: Finalized all documentation syncs and pushed clean commits to main.
 
 **What I learned:**
