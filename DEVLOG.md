@@ -120,6 +120,11 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
   - **Restored Number Input Colors**: Refactored inputs style from shorthand `background` to `backgroundColor` to ensure numbers and placeholder texts remain highly visible and high-contrast on all devices.
   - **Elevated Auditing Works Section Visibility**: Upgraded the container wrapping the "How LedgerAI Auditing Works" pipeline from a transparent, blending background to a solid `var(--card-bg)` panel with a clean 3D drop-shadow (`box-shadow`), successfully separating the entire section from the page's off-white background without altering the inside step layouts.
   - **Transited Repository Remote URLs**: Updated git remote configurations from `ai-ledger` to the renamed repository URL (`https://github.com/Vishal5051/Ledger-AI.git`) and updated all clone and install links in `README.md` and `Backend/config/db.js` accordingly.
+  - **Configured Netlify Deployment Specifications**:
+    - Created `Frontend/public/_redirects` containing `/* /index.html 200` to guarantee client-side React Router navigation (e.g. `/audit`, `/result`) loads seamlessly on reload without Netlify 404 errors.
+    - Verified `Frontend/package.json` configurations (validated standard Vite `build` script and confirmed build target folder `dist`).
+    - Handled environment integration security by adding `Frontend/.env.example` blueprint for `VITE_API_BASE` configurations, securing endpoints without hardcoding backend keys.
+    - Executed an automated compilation test locally via `npm run build` which successfully outputted the production bundle in 1.19 seconds with zero warnings or errors.
 - **Polished Repository & Synchronized Remotes**: Finalized all documentation syncs and pushed clean commits to main.
 
 **What I learned:**
@@ -130,8 +135,9 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
 - Removing browser spinners on number inputs via CSS resets dramatically refines B2B SaaS input fields, replacing jarring native elements with responsive and clean text-like formatting.
 - Section visibility inside dark/light themes depends heavily on three-dimensional layering cues; using a distinct solid backing and smooth drop-shadow prevents sections from merging into the page base.
 - Standardizing remote URLs in git keeps clone guides (`README.md`) and database fallback routes sync'd, ensuring clean installations for developers.
+- Netlify SPA deployment requires a robust `_redirects` configuration in the primary public assets directory, otherwise deep-linked static page reloads fail with browser errors.
 
 **Next steps:**
-- Validate final production build processes, environmental variable integrations, and ensure all console logs/unused parameters are purged.
+- Deploy the frontend live on Netlify using the certified settings, hook up the backend Render APIs, and proceed to launch.
 
 **Blockers / open items:** None.
