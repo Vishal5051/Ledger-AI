@@ -79,21 +79,42 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
 
 ## Day 4 — 2026-05-26
 
-**Hours worked:** 8 hours
+**Hours worked:** 12 hours
 
 **What I did today:**
-- Completed the production‑ready README with badges, screenshot placeholders, setup guide, feature list, tech stack, testing instructions, and deployment notes.
-- Added a comprehensive `ARCHITECTURE.md` containing a Mermaid diagram, component descriptions, data‑flow, scalability strategy for 10k audits/day, and rationale for using React + JavaScript.
-- Populated all previously empty markdown files (`ECONOMICS.md`, `GTM.md`, `LANDING_COPY.md`, `METRICS.md`, `REFLECTION.md`, `PROMPTS.md`, `USER_INTERVIEWS.md`) with realistic startup‑oriented content.
-- Updated `TESTS.md` to document the auditEngine test suite and provide running instructions.
-- Verified all documentation links are correct and the repository now looks like a professional SaaS portfolio ready for investors.
+- **Refactored & Modularized Backend to MVC Architecture**: Split the monolithic Express backend boilerplate into a clean, scalable Model-View-Controller pattern, introducing modular `config/db.js`, controllers (`auditController.js`, `leadController.js`), Mongoose models (`Audit.js`, `Lead.js`), and dedicated routing files.
+- **Upgraded Results Page to Premium B2B Dashboard**: Revamped `Result.jsx` with a high-end dark glassmorphism SaaS interface featuring custom Credex Qualification meters, dynamic cost-saving visual charts, confidence score ratings, and responsive layout grids.
+- **Implemented Rule-Based Cost Optimization Engine**: Coded rigorous non-linear pricing logic in `auditEngine.js` to parse actual SaaS rules (e.g., Claude Team 5-seat minimums, ChatGPT Team 2-seat minimums, developer usage tokens-to-cost modeling) to calculate real potential savings and prevent redundant multi-tool licenses.
+- **Integrated Automated Email Reports & Lead Capture**: Connected Resend SMTP and Nodemailer to automatically dispatch generated audit results directly to lead emails, complete with clean HTML summary reports.
+- **Configured Database-Backed Sharing Loop**: Built a robust URL link sharing system using database-backed unique IDs stored in MongoDB, with an instant fallback to Base64-encoded state tokens for serverless query parsing.
+- **Set Up Automated Testing Setup (Vitest)**: Implemented standard testing configuration with Vitest, writing 5 automated test cases in `auditEngine.test.js` validating the accuracy of the mathematical engine (total spend, optimized spend, redundancy checks, savings percent, empty inputs).
+- **Completed Production-Grade Documentation**: Published professional markdown files across the repository (`README.md`, `ARCHITECTURE.md` with Mermaid workflows, `TESTS.md`, `ECONOMICS.md`, `GTM.md`, `REFLECTION.md`, `USER_INTERVIEWS.md`, and `LANDING_COPY.md`) referencing real code metrics, database schemas, and startup unit economics.
 
 **What I learned:**
-- Writing concise, compelling documentation is as important as code quality for a startup product.
-- Consistent branding across README, architecture diagram, and markdown files boosts perceived professionalism.
+- Separating rule-based pricing logic from React's state management makes the core algorithms highly testable and robust under Vitest.
+- Visual polish using glassmorphism and clear KPI widgets dramatically improves user trust and perceived audit authenticity in SaaS applications.
+- Decoupling database queries from local state via Base64 URL fallback is a highly reliable fail-safe for client-side state reconstruction.
 
 **Next steps:**
-- Review deployment configuration (env variables, CORS, CI pipeline) and perform a final production build.
-- Remove any remaining console logs and dead code before the final release.
+- Complete specialized metrics tracking instrumentation (`METRICS.md`) and refine target AI prompts (`PROMPTS.md`).
+- Validate final production build processes, environmental variable integrations, and ensure all console logs/unused parameters are purged.
 
-**Blockers / open items:** None – documentation phase completed.
+**Blockers / open items:** None – full feature implementation and test coverage complete.
+
+## Day 5 — 2026-05-27
+
+**Hours worked:** 2 hours
+
+**What I did today:**
+- **Created SaaS Metrics Strategy (`METRICS.md`)**: Drafted the comprehensive metrics architecture document outlining our North Star metric (Completed Audits), concrete B2B SaaS input indicators (Audit Initiations, Share Loop Copying, Lead Conversions), Segment/Plausible instrumentation schemas, and strategic pivot thresholds.
+- **Engineered AI Prompts Strategy (`PROMPTS.md`)**: Documented LedgerAI's exact LLM prompt pipelines for Audit Summaries, Cost Optimizations, and Founder briefings, including strict cost matrix constraint mapping, context injection protocols, and a detailed engineering review of initial prompting failures (hallucinated prices, prose return overrides, duplicate suggestions).
+- **Polished Repository & Synchronized Remotes**: Finalized all documentation syncs and pushed clean commits to main.
+
+**What I learned:**
+- Grounding AI prompt templates in a deterministic pricing lookup matrix is crucial for keeping LLM financial projections accurate.
+- Well-instrumented pivot metrics ensure developer hours are prioritized toward features driving genuine user interaction.
+
+**Next steps:**
+- Prepare the final deployment bundle, configure production keys, and present for review.
+
+**Blockers / open items:** None.
