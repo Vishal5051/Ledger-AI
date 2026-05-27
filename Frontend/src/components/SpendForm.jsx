@@ -198,7 +198,7 @@ const SpendForm = () => {
                   <select
                     id="globalUseCase"
                     className="form-select form-select-lg border shadow-sm"
-                    style={{ background: "var(--bg)", borderColor: "var(--border)", color: "var(--text-h)", borderRadius: "10px" }}
+                    style={{ backgroundColor: "var(--bg)", borderColor: "var(--border)", color: "var(--text-h)", borderRadius: "10px" }}
                     value={globalUseCase}
                     onChange={(e) => setGlobalUseCase(e.target.value)}
                   >
@@ -292,7 +292,7 @@ const SpendForm = () => {
                         <label className="d-md-none text-muted small fw-bold font-monospace uppercase mb-1 d-block" style={{ fontSize: "10px" }}>AI Tool</label>
                         <select
                           className="form-select border shadow-sm"
-                          style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px", borderRadius: "8px" }}
+                          style={{ backgroundColor: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px", borderRadius: "8px" }}
                           value={row.tool}
                           onChange={(e) => handleToolChange(index, "tool", e.target.value)}
                         >
@@ -310,7 +310,7 @@ const SpendForm = () => {
                         <label className="d-md-none text-muted small fw-bold font-monospace uppercase mb-1 d-block" style={{ fontSize: "10px" }}>Active Plan</label>
                         <select
                           className="form-select border shadow-sm"
-                          style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px", borderRadius: "8px" }}
+                          style={{ backgroundColor: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px", borderRadius: "8px" }}
                           value={row.plan}
                           disabled={!row.tool}
                           onChange={(e) => handleToolChange(index, "plan", e.target.value)}
@@ -393,7 +393,7 @@ const SpendForm = () => {
                         <label className="d-md-none text-muted small fw-bold font-monospace uppercase mb-1 d-block" style={{ fontSize: "10px" }}>Use Case</label>
                         <select
                           className="form-select border shadow-sm"
-                          style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px", borderRadius: "8px" }}
+                          style={{ backgroundColor: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px", borderRadius: "8px" }}
                           value={row.useCase}
                           onChange={(e) => handleToolChange(index, "useCase", e.target.value)}
                         >

@@ -114,12 +114,14 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
   - Added monospaced responsive labels (`d-md-none` helper classes) visible only on mobile screens, providing essential accessibility cues that were previously hidden on smaller screens.
   - Engineered active warnings below the seats input to alert users in real time if their counts violate vendor limits (e.g. Cursor Hobby maximum seat threshold of 1 or Claude Team minimum seat floor of 5).
   - Implemented the `.gradient-cta` components for visual weight and polished focus outlines on interactive dropdown selectors.
+  - **Fixed Missing Caret Dropdown Arrows**: Refactored `<select>` inline styles from shorthand `background` overrides to `backgroundColor` rules, restoring the default Bootstrap chevron/caret dropdown indicator background-images.
 - **Polished Repository & Synchronized Remotes**: Finalized all documentation syncs and pushed clean commits to main.
 
 **What I learned:**
 - Grounding AI prompt templates in a deterministic pricing lookup matrix is crucial for keeping LLM financial projections accurate.
 - Well-instrumented pivot metrics ensure developer hours are prioritized toward features driving genuine user interaction.
 - Adding responsive mobile-only labels is a standard pattern that bridges the gap between clean desktop grids and accessible mobile layouts.
+- Relying on CSS shorthand `background` style resets overrides specific styling rules like `background-image` (which holds Bootstrap's select arrow data URI), whereas `backgroundColor` leaves it perfectly intact.
 
 **Next steps:**
 - Validate final production build processes, environmental variable integrations, and ensure all console logs/unused parameters are purged.
