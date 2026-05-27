@@ -407,3 +407,25 @@
   }
 }
 
+/* Premium Form Inputs Overhaul (Hover & Focus States) */
+.form-control, .form-select {
+  background-color: var(--card-bg) !important;
+  color: var(--text-h) !important;
+  border: 1px solid var(--border) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.form-control:hover, .form-select:hover {
+  border-color: var(--accent) !important;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.06) !important;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--accent) !important;
+  background-color: var(--card-bg) !important;
+  color: var(--text-h) !important;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15) !important;
+  outline: none !important;
+}
+
+

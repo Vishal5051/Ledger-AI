@@ -115,6 +115,7 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
   - Engineered active warnings below the seats input to alert users in real time if their counts violate vendor limits (e.g. Cursor Hobby maximum seat threshold of 1 or Claude Team minimum seat floor of 5).
   - Implemented the `.gradient-cta` components for visual weight and polished focus outlines on interactive dropdown selectors.
   - **Fixed Missing Caret Dropdown Arrows**: Refactored `<select>` inline styles from shorthand `background` overrides to `backgroundColor` rules, restoring the default Bootstrap chevron/caret dropdown indicator background-images.
+  - **Overhauled Input Visibility & Hover UX**: Refactored seats and monthly spend inputs from shorthand `background` to `backgroundColor` for seamless styling compatibility. Introduced premium global form input styles in `App.css` for `.form-control` and `.form-select` to support smooth transition curves, royal indigo border outlines, and elegant drop-shadow animations on hover/focus, entirely removing default browser rendering anomalies.
 - **Polished Repository & Synchronized Remotes**: Finalized all documentation syncs and pushed clean commits to main.
 
 **What I learned:**
@@ -122,6 +123,7 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
 - Well-instrumented pivot metrics ensure developer hours are prioritized toward features driving genuine user interaction.
 - Adding responsive mobile-only labels is a standard pattern that bridges the gap between clean desktop grids and accessible mobile layouts.
 - Relying on CSS shorthand `background` style resets overrides specific styling rules like `background-image` (which holds Bootstrap's select arrow data URI), whereas `backgroundColor` leaves it perfectly intact.
+- Global styling of form focus/hover outlines with subtle drop shadows significantly boosts the perceived premium quality of a B2B SaaS tool.
 
 **Next steps:**
 - Validate final production build processes, environmental variable integrations, and ensure all console logs/unused parameters are purged.

@@ -183,7 +183,7 @@ const SpendForm = () => {
                     type="number"
                     id="teamSize"
                     className="form-control form-control-lg border shadow-sm"
-                    style={{ background: "var(--bg)", borderColor: "var(--border)", color: "var(--text-h)", borderRadius: "10px" }}
+                    style={{ backgroundColor: "var(--bg)", borderColor: "var(--border)", color: "var(--text-h)", borderRadius: "10px" }}
                     min="1"
                     value={teamSize}
                     onChange={(e) => setTeamSize(parseInt(e.target.value, 10) || 1)}
@@ -342,7 +342,7 @@ const SpendForm = () => {
                         <input
                           type="number"
                           className="form-control border shadow-sm"
-                          style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px", borderRadius: "8px" }}
+                          style={{ backgroundColor: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px", borderRadius: "8px" }}
                           min="1"
                           value={row.seats}
                           onChange={(e) =>
@@ -373,7 +373,7 @@ const SpendForm = () => {
                           <input
                             type="number"
                             className="form-control border"
-                            style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px" }}
+                            style={{ backgroundColor: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px" }}
                             min="0"
                             placeholder="0.00"
                             value={row.spend}
