@@ -118,6 +118,7 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
   - **Eliminated Ugly Browser Spinner Controls**: Hidden default browser increment/decrement arrows on `<input type="number">` using custom CSS, removing the misaligned browser-native arrows that clashing with our dark/glassmorphism styling.
   - **Engineered Hover & Focus Glowing Transitions**: Designed glowing transitions inside `App.css` so that on hover/focus, input and select fields smoothly highlight with a subtle Royal Indigo shadow and border accent.
   - **Restored Number Input Colors**: Refactored inputs style from shorthand `background` to `backgroundColor` to ensure numbers and placeholder texts remain highly visible and high-contrast on all devices.
+  - **Overhauled Auditing Works Pipeline Section**: Redesigned the "How LedgerAI Auditing Works" section in `Home.jsx` from a zero-contrast, nearly invisible layout to a premium glassmorphic section featuring three beautifully structured, shadow-backed step cards with distinct glowing number indicators, custom icons, and visual card lift animations.
 - **Polished Repository & Synchronized Remotes**: Finalized all documentation syncs and pushed clean commits to main.
 
 **What I learned:**
@@ -126,6 +127,7 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
 - Adding responsive mobile-only labels is a standard pattern that bridges the gap between clean desktop grids and accessible mobile layouts.
 - Relying on CSS shorthand `background` style resets overrides specific styling rules like `background-image` (which holds Bootstrap's select arrow data URI), whereas `backgroundColor` leaves it perfectly intact.
 - Removing browser spinners on number inputs via CSS resets dramatically refines B2B SaaS input fields, replacing jarring native elements with responsive and clean text-like formatting.
+- Containers styled with low-opacity white layers (e.g. `rgba(255,255,255,0.01)`) completely disappear on light-themed backgrounds, requiring robust border styling, elevated shadows, or glassmorphic backdrops to meet high-end UI/UX standards.
 
 **Next steps:**
 - Validate final production build processes, environmental variable integrations, and ensure all console logs/unused parameters are purged.

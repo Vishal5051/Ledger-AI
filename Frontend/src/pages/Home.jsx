@@ -476,39 +476,135 @@ const Home = () => {
       </div>
 
       {/* 3. MODERN PIPELINE METHODOLOGY */}
-      <div className="py-5 mb-5 rounded-4 p-4 p-md-5" style={{ background: "rgba(255, 255, 255, 0.01)", border: "1px solid var(--border)" }}>
-        <h4 className="fw-bold text-center mb-2" style={{ color: "var(--text-h)" }}>
-          How LedgerAI Auditing Works
-        </h4>
-        <p className="text-center text-muted small mb-5">
-          Three structured phases translating raw inputs into validated expense ledger targets.
-        </p>
+      <div className="card glass-card py-5 mb-5 rounded-4 p-4 p-md-5 border-0 shadow-sm text-center">
+        <div className="mb-4">
+          <span 
+            className="badge px-3 py-2 rounded-pill font-monospace uppercase tracking-wider mb-3 shadow-sm"
+            style={{ background: "var(--accent-bg)", color: "var(--accent)", border: "1px solid var(--accent-border)", fontSize: "11px" }}
+          >
+            WORKFLOW // 03
+          </span>
+          <h2 
+            className="fw-bold mb-2" 
+            style={{ 
+              color: "var(--text-h)", 
+              fontFamily: "Outfit, sans-serif", 
+              fontSize: "2.2rem", 
+              letterSpacing: "-1px" 
+            }}
+          >
+            How LedgerAI Auditing Works
+          </h2>
+          <p className="text-muted mx-auto mb-0" style={{ maxWidth: "600px", fontSize: "15px" }}>
+            Three structured phases translating raw team usage profiles into validated, high-impact expense ledger recommendations.
+          </p>
+        </div>
         
-        <div className="pipeline-track">
-          <div className="pipeline-connector"></div>
+        <div className="row g-4 mt-2 justify-content-center text-start">
           
-          <div className="pipeline-step-card text-center">
-            <div className="pipeline-number">1</div>
-            <h5 className="fw-bold mb-2" style={{ color: "var(--text-h)", fontSize: "1rem" }}>Catalog SaaS Profiles</h5>
-            <p className="text-muted small m-0 px-2" style={{ lineHeight: "1.5" }}>
-              Enter active team licenses, developer seats, and qualitative usage bounds into our secure input form.
-            </p>
+          {/* Step 1 */}
+          <div className="col-lg-4 col-md-6 col-12">
+            <div 
+              className="h-100 p-4 rounded-4 transition-all visual-card" 
+              style={{ 
+                backgroundColor: "var(--card-bg)", 
+                border: "1px solid var(--border)", 
+                boxShadow: "var(--shadow)",
+                borderRadius: "16px"
+              }}
+            >
+              <div className="d-flex align-items-center justify-content-center mb-3">
+                <div 
+                  className="rounded-circle d-flex align-items-center justify-content-center font-monospace fw-bold" 
+                  style={{ 
+                    width: "48px", 
+                    height: "48px", 
+                    background: "var(--accent-bg)", 
+                    color: "var(--accent)", 
+                    border: "2px solid var(--accent-border)",
+                    fontSize: "18px"
+                  }}
+                >
+                  01
+                </div>
+              </div>
+              <h5 className="fw-bold mb-2 text-center" style={{ color: "var(--text-h)", fontSize: "1.1rem" }}>
+                📋 Catalog SaaS Profiles
+              </h5>
+              <p className="text-muted small m-0 text-center" style={{ lineHeight: "1.6" }}>
+                Enter active team licenses, developer seats, and qualitative usage bounds into our secure Spend Configuration form.
+              </p>
+            </div>
           </div>
 
-          <div className="pipeline-step-card text-center">
-            <div className="pipeline-number">2</div>
-            <h5 className="fw-bold mb-2" style={{ color: "var(--text-h)", fontSize: "1rem" }}>Run Rule Computations</h5>
-            <p className="text-muted small m-0 px-2" style={{ lineHeight: "1.5" }}>
-              Our rules compiler evaluates allocations against pricing structures, seat floors, and safeguards.
-            </p>
+          {/* Step 2 */}
+          <div className="col-lg-4 col-md-6 col-12">
+            <div 
+              className="h-100 p-4 rounded-4 transition-all visual-card" 
+              style={{ 
+                backgroundColor: "var(--card-bg)", 
+                border: "1px solid var(--border)", 
+                boxShadow: "var(--shadow)",
+                borderRadius: "16px"
+              }}
+            >
+              <div className="d-flex align-items-center justify-content-center mb-3">
+                <div 
+                  className="rounded-circle d-flex align-items-center justify-content-center font-monospace fw-bold" 
+                  style={{ 
+                    width: "48px", 
+                    height: "48px", 
+                    background: "rgba(217, 119, 6, 0.07)", 
+                    color: "#d97706", 
+                    border: "2px solid rgba(217, 119, 6, 0.2)",
+                    fontSize: "18px"
+                  }}
+                >
+                  02
+                </div>
+              </div>
+              <h5 className="fw-bold mb-2 text-center" style={{ color: "var(--text-h)", fontSize: "1.1rem" }}>
+                ⚙️ Run Rule Computations
+              </h5>
+              <p className="text-muted small m-0 text-center" style={{ lineHeight: "1.6" }}>
+                Our audit engine automatically evaluates entries against non-linear pricing constraints, seat thresholds, and software overlays.
+              </p>
+            </div>
           </div>
 
-          <div className="pipeline-step-card text-center">
-            <div className="pipeline-number">3</div>
-            <h5 className="fw-bold mb-2" style={{ color: "var(--text-h)", fontSize: "1rem" }}>Generate Ledger Plans</h5>
-            <p className="text-muted small m-0 px-2" style={{ lineHeight: "1.5" }}>
-              Export validated PDF expense transition reports, generate secure sharing short-links, and start saving.
-            </p>
+          {/* Step 3 */}
+          <div className="col-lg-4 col-md-6 col-12">
+            <div 
+              className="h-100 p-4 rounded-4 transition-all visual-card" 
+              style={{ 
+                backgroundColor: "var(--card-bg)", 
+                border: "1px solid var(--border)", 
+                boxShadow: "var(--shadow)",
+                borderRadius: "16px"
+              }}
+            >
+              <div className="d-flex align-items-center justify-content-center mb-3">
+                <div 
+                  className="rounded-circle d-flex align-items-center justify-content-center font-monospace fw-bold" 
+                  style={{ 
+                    width: "48px", 
+                    height: "48px", 
+                    background: "rgba(16, 185, 129, 0.07)", 
+                    color: "#10b981", 
+                    border: "2px solid rgba(16, 185, 129, 0.2)",
+                    fontSize: "18px"
+                  }}
+                >
+                  03
+                </div>
+              </div>
+              <h5 className="fw-bold mb-2 text-center" style={{ color: "var(--text-h)", fontSize: "1.1rem" }}>
+                💎 Generate Ledger Plans
+              </h5>
+              <p className="text-muted small m-0 text-center" style={{ lineHeight: "1.6" }}>
+                Export professional PDF transition brief reports, generate secure database-backed share links, and instantly reduce monthly waste.
+              </p>
+            </div>
           </div>
 
         </div>
