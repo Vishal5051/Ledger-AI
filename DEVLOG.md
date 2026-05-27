@@ -115,7 +115,9 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
   - Engineered active warnings below the seats input to alert users in real time if their counts violate vendor limits (e.g. Cursor Hobby maximum seat threshold of 1 or Claude Team minimum seat floor of 5).
   - Implemented the `.gradient-cta` components for visual weight and polished focus outlines on interactive dropdown selectors.
   - **Fixed Missing Caret Dropdown Arrows**: Refactored `<select>` inline styles from shorthand `background` overrides to `backgroundColor` rules, restoring the default Bootstrap chevron/caret dropdown indicator background-images.
-  - **Overhauled Input Visibility & Hover UX**: Refactored seats and monthly spend inputs from shorthand `background` to `backgroundColor` for seamless styling compatibility. Introduced premium global form input styles in `App.css` for `.form-control` and `.form-select` to support smooth transition curves, royal indigo border outlines, and elegant drop-shadow animations on hover/focus, entirely removing default browser rendering anomalies.
+  - **Eliminated Ugly Browser Spinner Controls**: Hidden default browser increment/decrement arrows on `<input type="number">` using custom CSS, removing the misaligned browser-native arrows that clashing with our dark/glassmorphism styling.
+  - **Engineered Hover & Focus Glowing Transitions**: Designed glowing transitions inside `App.css` so that on hover/focus, input and select fields smoothly highlight with a subtle Royal Indigo shadow and border accent.
+  - **Restored Number Input Colors**: Refactored inputs style from shorthand `background` to `backgroundColor` to ensure numbers and placeholder texts remain highly visible and high-contrast on all devices.
 - **Polished Repository & Synchronized Remotes**: Finalized all documentation syncs and pushed clean commits to main.
 
 **What I learned:**
@@ -123,7 +125,7 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
 - Well-instrumented pivot metrics ensure developer hours are prioritized toward features driving genuine user interaction.
 - Adding responsive mobile-only labels is a standard pattern that bridges the gap between clean desktop grids and accessible mobile layouts.
 - Relying on CSS shorthand `background` style resets overrides specific styling rules like `background-image` (which holds Bootstrap's select arrow data URI), whereas `backgroundColor` leaves it perfectly intact.
-- Global styling of form focus/hover outlines with subtle drop shadows significantly boosts the perceived premium quality of a B2B SaaS tool.
+- Removing browser spinners on number inputs via CSS resets dramatically refines B2B SaaS input fields, replacing jarring native elements with responsive and clean text-like formatting.
 
 **Next steps:**
 - Validate final production build processes, environmental variable integrations, and ensure all console logs/unused parameters are purged.

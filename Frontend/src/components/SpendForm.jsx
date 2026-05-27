@@ -369,7 +369,7 @@ const SpendForm = () => {
                       <div className="col-md-2 col-6 mb-2 mb-md-0">
                         <label className="d-md-none text-muted small fw-bold font-monospace uppercase mb-1 d-block" style={{ fontSize: "10px" }}>Spend ($)</label>
                         <div className="input-group shadow-sm" style={{ borderRadius: "8px", overflow: "hidden" }}>
-                          <span className="input-group-text border text-muted font-monospace" style={{ background: "var(--code-bg)", borderColor: "var(--border)", fontSize: "13px" }}>$</span>
+                          <span className="input-group-text border text-muted font-monospace" style={{ backgroundColor: "var(--code-bg)", borderColor: "var(--border)", fontSize: "13px" }}>$</span>
                           <input
                             type="number"
                             className="form-control border"

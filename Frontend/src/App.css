@@ -407,25 +407,31 @@
   }
 }
 
-/* Premium Form Inputs Overhaul (Hover & Focus States) */
+/* Hide default up/down number spin-button controls */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Premium input & select hover + focus glowing transitions */
 .form-control, .form-select {
-  background-color: var(--card-bg) !important;
-  color: var(--text-h) !important;
-  border: 1px solid var(--border) !important;
-  transition: all 0.2s ease-in-out !important;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .form-control:hover, .form-select:hover {
-  border-color: var(--accent) !important;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.06) !important;
+  border-color: var(--accent-border) !important;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.04) !important;
 }
 
 .form-control:focus, .form-select:focus {
   border-color: var(--accent) !important;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12) !important;
+  outline: 0 !important;
   background-color: var(--card-bg) !important;
   color: var(--text-h) !important;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15) !important;
-  outline: none !important;
 }
-
-
