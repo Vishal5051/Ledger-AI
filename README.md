@@ -18,7 +18,7 @@ LedgerAI is a SaaS platform that audits your team's AI‑tool subscriptions, ide
 ---
 
 ## 🚀 Live Demo
-[https://ledgerai.example.com](https://ledgerai.example.com) *(placeholder – update when deployed)*
+[https://ledger-ai-audit.netlify.app](https://ledger-ai-audit.netlify.app)
 
 ---
 

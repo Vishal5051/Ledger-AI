@@ -130,6 +130,7 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
     - **Created GitHub Actions CI Workflow**: Established `.github/workflows/ci.yml` running automatic Checkout, Node environments setups, dependency updates, Vitest test suites, and production package builds upon pulls or pushes to main.
     - **Added B2B SaaS SEO & OG Card Metadata**: Restructured `Frontend/index.html` headers with responsive descriptions, author definitions, robot crawl permissions, Facebook/LinkedIn Open Graph parameters, and high-fidelity Twitter large summaries.
     - **Published Backend Env Blueprint**: Added `Backend/.env.example` to provide standard deployment blueprint guides.
+    - **Registered Live Netlify URL**: Configured Open Graph and Twitter URL properties in `index.html` and updated demo links in `README.md` to match the actual live deployed URL: `https://ledger-ai-audit.netlify.app`.
 - **Polished Repository & Synchronized Remotes**: Finalized all documentation syncs and pushed clean commits to main.
 
 **What I learned:**
@@ -144,6 +145,6 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
 - Designing a custom memory-based rate limiter in Node.js keeps backend microservices highly secure and self-contained, eliminating redundant external dependencies.
 
 **Next steps:**
-- Run the final GitHub Action pipelines and present the complete compliance portfolio.
+- Proceed to live database verification, run manual lead capture tests, and hand off this certified, recruiter-ready deployment bundle.
 
 **Blockers / open items:** None.
