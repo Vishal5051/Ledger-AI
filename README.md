@@ -18,7 +18,8 @@ LedgerAI is a SaaS platform that audits your team's AI‑tool subscriptions, ide
 ---
 
 ## 🚀 Live Demo
-[https://ledger-ai-audit.netlify.app](https://ledger-ai-audit.netlify.app)
+- **Frontend App**: [https://ledger-ai-audit.netlify.app](https://ledger-ai-audit.netlify.app)
+- **Backend API**: [https://ledger-ai-backend-eshl.onrender.com](https://ledger-ai-backend-eshl.onrender.com)
 
 ---
 
@@ -39,8 +40,8 @@ cd Ledger-AI
 # Frontend
 cd Frontend
 npm install
-# copy env example and set URL of backend
-cp .env.example .env   # set VITE_API_BASE=http://localhost:5000
+# copy env example and set URL of backend (or use our live production Render endpoint)
+cp .env.example .env   # set VITE_API_BASE=https://ledger-ai-backend-eshl.onrender.com
 npm run dev
 
 # Backend
