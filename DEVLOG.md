@@ -125,6 +125,11 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
     - Verified `Frontend/package.json` configurations (validated standard Vite `build` script and confirmed build target folder `dist`).
     - Handled environment integration security by adding `Frontend/.env.example` blueprint for `VITE_API_BASE` configurations, securing endpoints without hardcoding backend keys.
     - Executed an automated compilation test locally via `npm run build` which successfully outputted the production bundle in 1.19 seconds with zero warnings or errors.
+  - **Executed Compliance Overhauls & Pipeline Configs**:
+    - **Engineered Custom Express Rate Limiter**: Implemented a lightweight, memory-based rate limiting middleware inside `Backend/server.js` (capping requests at 100 per 15 minutes per IP), protecting database endpoints from spam without adding massive node module burdens.
+    - **Created GitHub Actions CI Workflow**: Established `.github/workflows/ci.yml` running automatic Checkout, Node environments setups, dependency updates, Vitest test suites, and production package builds upon pulls or pushes to main.
+    - **Added B2B SaaS SEO & OG Card Metadata**: Restructured `Frontend/index.html` headers with responsive descriptions, author definitions, robot crawl permissions, Facebook/LinkedIn Open Graph parameters, and high-fidelity Twitter large summaries.
+    - **Published Backend Env Blueprint**: Added `Backend/.env.example` to provide standard deployment blueprint guides.
 - **Polished Repository & Synchronized Remotes**: Finalized all documentation syncs and pushed clean commits to main.
 
 **What I learned:**
@@ -136,8 +141,9 @@ Another key thing I learned is how useful localStorage is for MVP-level persiste
 - Section visibility inside dark/light themes depends heavily on three-dimensional layering cues; using a distinct solid backing and smooth drop-shadow prevents sections from merging into the page base.
 - Standardizing remote URLs in git keeps clone guides (`README.md`) and database fallback routes sync'd, ensuring clean installations for developers.
 - Netlify SPA deployment requires a robust `_redirects` configuration in the primary public assets directory, otherwise deep-linked static page reloads fail with browser errors.
+- Designing a custom memory-based rate limiter in Node.js keeps backend microservices highly secure and self-contained, eliminating redundant external dependencies.
 
 **Next steps:**
-- Deploy the frontend live on Netlify using the certified settings, hook up the backend Render APIs, and proceed to launch.
+- Run the final GitHub Action pipelines and present the complete compliance portfolio.
 
 **Blockers / open items:** None.
