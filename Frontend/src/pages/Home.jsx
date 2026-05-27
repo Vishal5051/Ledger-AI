@@ -479,12 +479,13 @@ const Home = () => {
       <div 
         className="py-5 mb-5 rounded-4 p-4 p-md-5" 
         style={{ 
-          background: "var(--card-bg)", 
-          border: "1px solid var(--accent-border)",
-          boxShadow: "0 15px 35px rgba(79, 70, 229, 0.04), 0 0 0 1px rgba(79, 70, 229, 0.02)"
+          backgroundColor: "var(--card-bg)", 
+          border: "1px solid var(--border)",
+          boxShadow: "0 12px 36px -12px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.01)",
+          borderRadius: "16px"
         }}
       >
-        <h4 className="fw-bold text-center mb-2" style={{ color: "var(--text-h)", fontFamily: "Outfit, sans-serif" }}>
+        <h4 className="fw-bold text-center mb-2" style={{ color: "var(--text-h)" }}>
           How LedgerAI Auditing Works
         </h4>
         <p className="text-center text-muted small mb-5">
@@ -492,26 +493,26 @@ const Home = () => {
         </p>
         
         <div className="pipeline-track">
-          <div className="pipeline-connector" style={{ background: "linear-gradient(90deg, var(--accent) 0%, var(--accent-border) 100%)" }}></div>
+          <div className="pipeline-connector"></div>
           
-          <div className="pipeline-step-card text-center p-3 rounded-4 shadow-sm" style={{ background: "rgba(255, 255, 255, 0.8)", border: "1px solid var(--border)" }}>
-            <div className="pipeline-number" style={{ background: "var(--bg)", border: "2px solid var(--accent)" }}>1</div>
+          <div className="pipeline-step-card text-center">
+            <div className="pipeline-number">1</div>
             <h5 className="fw-bold mb-2" style={{ color: "var(--text-h)", fontSize: "1rem" }}>Catalog SaaS Profiles</h5>
             <p className="text-muted small m-0 px-2" style={{ lineHeight: "1.5" }}>
               Enter active team licenses, developer seats, and qualitative usage bounds into our secure input form.
             </p>
           </div>
 
-          <div className="pipeline-step-card text-center p-3 rounded-4 shadow-sm" style={{ background: "rgba(255, 255, 255, 0.8)", border: "1px solid var(--border)" }}>
-            <div className="pipeline-number" style={{ background: "var(--bg)", border: "2px solid var(--accent)" }}>2</div>
+          <div className="pipeline-step-card text-center">
+            <div className="pipeline-number">2</div>
             <h5 className="fw-bold mb-2" style={{ color: "var(--text-h)", fontSize: "1rem" }}>Run Rule Computations</h5>
             <p className="text-muted small m-0 px-2" style={{ lineHeight: "1.5" }}>
               Our rules compiler evaluates allocations against pricing structures, seat floors, and safeguards.
             </p>
           </div>
 
-          <div className="pipeline-step-card text-center p-3 rounded-4 shadow-sm" style={{ background: "rgba(255, 255, 255, 0.8)", border: "1px solid var(--border)" }}>
-            <div className="pipeline-number" style={{ background: "var(--bg)", border: "2px solid var(--accent)" }}>3</div>
+          <div className="pipeline-step-card text-center">
+            <div className="pipeline-number">3</div>
             <h5 className="fw-bold mb-2" style={{ color: "var(--text-h)", fontSize: "1rem" }}>Generate Ledger Plans</h5>
             <p className="text-muted small m-0 px-2" style={{ lineHeight: "1.5" }}>
               Export validated PDF expense transition reports, generate secure sharing short-links, and start saving.
