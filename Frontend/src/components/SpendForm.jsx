@@ -168,7 +168,7 @@ const SpendForm = () => {
           <form onSubmit={handleAnalyze}>
             
             {/* GLOBAL INFORMATION CARD */}
-            <div className="card border-0 p-4 mb-4 rounded-4 shadow-sm" style={{ background: "var(--card-bg)", border: "1px solid var(--border) !important" }}>
+            <div className="card glass-card border-0 p-4 mb-4 rounded-4 text-start">
               <div className="d-flex align-items-center gap-2 mb-3">
                 <span className="mono-tag" style={{ border: "1px solid var(--accent)", color: "var(--accent)" }}>PROFILE // 01</span>
                 <h5 className="fw-bold m-0" style={{ color: "var(--text-h)" }}>Company Workspace Profile</h5>
@@ -182,8 +182,8 @@ const SpendForm = () => {
                   <input
                     type="number"
                     id="teamSize"
-                    className="form-control form-control-lg border"
-                    style={{ background: "var(--bg)", borderColor: "var(--border)", color: "var(--text-h)", borderRadius: "8px" }}
+                    className="form-control form-control-lg border shadow-sm"
+                    style={{ background: "var(--bg)", borderColor: "var(--border)", color: "var(--text-h)", borderRadius: "10px" }}
                     min="1"
                     value={teamSize}
                     onChange={(e) => setTeamSize(parseInt(e.target.value, 10) || 1)}
@@ -197,8 +197,8 @@ const SpendForm = () => {
                   </label>
                   <select
                     id="globalUseCase"
-                    className="form-select form-select-lg border"
-                    style={{ background: "var(--bg)", borderColor: "var(--border)", color: "var(--text-h)", borderRadius: "8px" }}
+                    className="form-select form-select-lg border shadow-sm"
+                    style={{ background: "var(--bg)", borderColor: "var(--border)", color: "var(--text-h)", borderRadius: "10px" }}
                     value={globalUseCase}
                     onChange={(e) => setGlobalUseCase(e.target.value)}
                   >
@@ -214,7 +214,7 @@ const SpendForm = () => {
             </div>
 
             {/* DYNAMIC TOOL ROWS CARD */}
-            <div className="card p-4 border-0 rounded-4 shadow-sm mb-4" style={{ background: "var(--card-bg)", border: "1px solid var(--border) !important" }}>
+            <div className="card glass-card p-4 border-0 rounded-4 text-start mb-4">
               <div className="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom" style={{ borderColor: "var(--border)" }}>
                 <div className="d-flex align-items-center gap-2">
                   <span className="mono-tag" style={{ border: "1px solid var(--accent)", color: "var(--accent)" }}>STACK // 02</span>
@@ -225,7 +225,7 @@ const SpendForm = () => {
                   type="button"
                   className="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 fw-semibold px-3 py-2"
                   onClick={handleAddRow}
-                  style={{ border: "1px solid var(--accent)", color: "var(--accent)" }}
+                  style={{ border: "1px solid var(--accent)", color: "var(--accent)", borderRadius: "8px" }}
                 >
                   <span>➕</span> Add Tool Row
                 </button>
@@ -247,133 +247,172 @@ const SpendForm = () => {
               </div>
 
               {/* Dynamic Rows mapping */}
-              {tools.map((row, index) => (
-                <div
-                  key={index}
-                  className="p-3 mb-3 border rounded-3 position-relative transition-all"
-                  style={{
-                    background: "var(--bg)",
-                    borderColor: "var(--border)",
-                  }}
-                >
-                  <div className="d-flex justify-content-between align-items-center mb-3">
-                    <span className="badge px-3 py-1.5 rounded-pill font-monospace" style={{ background: "var(--accent-bg)", color: "var(--accent)", border: "1px solid var(--accent-border)", fontSize: "11px" }}>
-                      TOOL_ROW #{index + 1}
-                    </span>
-                    
-                    {tools.length > 1 && (
-                      <button
-                        type="button"
-                        className="btn btn-link text-danger p-0 text-decoration-none small font-monospace d-flex align-items-center gap-1"
-                        onClick={() => handleRemoveRow(index)}
-                        style={{ fontSize: "12px" }}
-                      >
-                        🗑️ Delete
-                      </button>
-                    )}
-                  </div>
+              {tools.map((row, index) => {
+                const selectedTool = row.tool;
+                const selectedPlan = row.plan;
+                const seatCount = parseInt(row.seats, 10) || 1;
+                let matchingPlan = null;
+                if (selectedTool && selectedPlan && pricingData[selectedTool]) {
+                  matchingPlan = pricingData[selectedTool].plans.find(
+                    (p) => p.name === selectedPlan
+                  );
+                }
 
-                  <div className="row g-2 text-start align-items-center">
-                    
-                    {/* 1. Tool Selection */}
-                    <div className="col-md-3 col-12">
-                      <select
-                        className="form-select border"
-                        style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px" }}
-                        value={row.tool}
-                        onChange={(e) => handleToolChange(index, "tool", e.target.value)}
-                      >
-                        <option value="">-- Select Tool --</option>
-                        {toolKeys.map((key) => (
-                          <option key={key} value={key}>
-                            {pricingData[key].name}
-                          </option>
-                        ))}
-                      </select>
+                return (
+                  <div
+                    key={index}
+                    className="p-3 mb-3 border rounded-3 position-relative transition-all shadow-sm"
+                    style={{
+                      background: "rgba(var(--bg-rgb, 248, 250, 252), 0.5)",
+                      borderColor: "var(--border)",
+                      borderRadius: "12px"
+                    }}
+                  >
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                      <span className="badge px-3 py-1.5 rounded-pill font-monospace" style={{ background: "var(--accent-bg)", color: "var(--accent)", border: "1px solid var(--accent-border)", fontSize: "11px" }}>
+                        TOOL_ROW #{index + 1}
+                      </span>
+                      
+                      {tools.length > 1 && (
+                        <button
+                          type="button"
+                          className="btn btn-link text-danger p-0 text-decoration-none small font-monospace d-flex align-items-center gap-1"
+                          onClick={() => handleRemoveRow(index)}
+                          style={{ fontSize: "12px" }}
+                        >
+                          🗑️ Delete Row
+                        </button>
+                      )}
                     </div>
 
-                    {/* 2. Plan Selection */}
-                    <div className="col-md-3 col-12">
-                      <select
-                        className="form-select border"
-                        style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px" }}
-                        value={row.plan}
-                        disabled={!row.tool}
-                        onChange={(e) => handleToolChange(index, "plan", e.target.value)}
-                      >
-                        <option value="">-- Select Plan --</option>
-                        {row.tool &&
-                          pricingData[row.tool]?.plans.map((p) => (
-                            <option key={p.name} value={p.name}>
-                              {p.name} (${p.price}/user)
+                    <div className="row g-2 text-start align-items-start">
+                      
+                      {/* 1. Tool Selection */}
+                      <div className="col-md-3 col-12 mb-2 mb-md-0">
+                        <label className="d-md-none text-muted small fw-bold font-monospace uppercase mb-1 d-block" style={{ fontSize: "10px" }}>AI Tool</label>
+                        <select
+                          className="form-select border shadow-sm"
+                          style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px", borderRadius: "8px" }}
+                          value={row.tool}
+                          onChange={(e) => handleToolChange(index, "tool", e.target.value)}
+                        >
+                          <option value="">-- Select Tool --</option>
+                          {toolKeys.map((key) => (
+                            <option key={key} value={key}>
+                              {pricingData[key].name}
                             </option>
                           ))}
-                      </select>
-                    </div>
+                        </select>
+                      </div>
 
-                    {/* 3. Seats Selection */}
-                    <div className="col-md-2 col-6">
-                      <input
-                        type="number"
-                        className="form-control border"
-                        style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px" }}
-                        min="1"
-                        value={row.seats}
-                        onChange={(e) =>
-                          handleToolChange(
-                            index,
-                            "seats",
-                            parseInt(e.target.value, 10) || 1
-                          )
-                        }
-                      />
-                    </div>
+                      {/* 2. Plan Selection */}
+                      <div className="col-md-3 col-12 mb-2 mb-md-0">
+                        <label className="d-md-none text-muted small fw-bold font-monospace uppercase mb-1 d-block" style={{ fontSize: "10px" }}>Active Plan</label>
+                        <select
+                          className="form-select border shadow-sm"
+                          style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px", borderRadius: "8px" }}
+                          value={row.plan}
+                          disabled={!row.tool}
+                          onChange={(e) => handleToolChange(index, "plan", e.target.value)}
+                        >
+                          <option value="">-- Select Plan --</option>
+                          {row.tool &&
+                            pricingData[row.tool]?.plans.map((p) => {
+                              let displayPriceText = "";
+                              if (p.pricingModel === "flat") {
+                                displayPriceText = `$${p.price}/mo flat`;
+                              } else if (p.pricingModel === "usage") {
+                                displayPriceText = `usage-based`;
+                              } else {
+                                displayPriceText = `$${p.price}/seat/mo`;
+                              }
 
-                    {/* 4. Monthly Spend Input */}
-                    <div className="col-md-2 col-6">
-                      <div className="input-group">
-                        <span className="input-group-text border text-muted font-monospace" style={{ background: "var(--code-bg)", borderColor: "var(--border)", fontSize: "13px" }}>$</span>
+                              return (
+                                <option key={p.name} value={p.name}>
+                                  {p.name} ({displayPriceText})
+                                </option>
+                              );
+                            })}
+                        </select>
+                      </div>
+
+                      {/* 3. Seats Selection */}
+                      <div className="col-md-2 col-6 mb-2 mb-md-0">
+                        <label className="d-md-none text-muted small fw-bold font-monospace uppercase mb-1 d-block" style={{ fontSize: "10px" }}>Seats</label>
                         <input
                           type="number"
-                          className="form-control border"
-                          style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px" }}
-                          min="0"
-                          placeholder="0.00"
-                          value={row.spend}
+                          className="form-control border shadow-sm"
+                          style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px", borderRadius: "8px" }}
+                          min="1"
+                          value={row.seats}
                           onChange={(e) =>
                             handleToolChange(
                               index,
-                              "spend",
-                              e.target.value === "" ? "" : parseFloat(e.target.value) || 0
+                              "seats",
+                              parseInt(e.target.value, 10) || 1
                             )
                           }
                         />
+                        {matchingPlan && matchingPlan.maxSeats && seatCount > matchingPlan.maxSeats && (
+                          <div className="text-warning font-monospace text-start mt-1" style={{ fontSize: "10px", lineHeight: "1.2" }}>
+                            ⚠️ Max {matchingPlan.maxSeats} seat{matchingPlan.maxSeats > 1 ? "s" : ""}
+                          </div>
+                        )}
+                        {matchingPlan && matchingPlan.minSeats && seatCount < matchingPlan.minSeats && (
+                          <div className="text-info font-monospace text-start mt-1" style={{ fontSize: "10px", lineHeight: "1.2" }}>
+                            ℹ️ Min {matchingPlan.minSeats} seat{matchingPlan.minSeats > 1 ? "s" : ""}
+                          </div>
+                        )}
                       </div>
-                    </div>
 
-                    {/* 5. Tool Specific Use Case */}
-                    <div className="col-md-2 col-12">
-                      <select
-                        className="form-select border"
-                        style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px" }}
-                        value={row.useCase}
-                        onChange={(e) => handleToolChange(index, "useCase", e.target.value)}
-                      >
-                        <option value="coding">💻 Coding</option>
-                        <option value="writing">✍️ Writing</option>
-                        <option value="data">📊 Data Analytics</option>
-                        <option value="research">🔍 Research</option>
-                        <option value="mixed">🔄 General</option>
-                      </select>
-                    </div>
+                      {/* 4. Monthly Spend Input */}
+                      <div className="col-md-2 col-6 mb-2 mb-md-0">
+                        <label className="d-md-none text-muted small fw-bold font-monospace uppercase mb-1 d-block" style={{ fontSize: "10px" }}>Spend ($)</label>
+                        <div className="input-group shadow-sm" style={{ borderRadius: "8px", overflow: "hidden" }}>
+                          <span className="input-group-text border text-muted font-monospace" style={{ background: "var(--code-bg)", borderColor: "var(--border)", fontSize: "13px" }}>$</span>
+                          <input
+                            type="number"
+                            className="form-control border"
+                            style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px" }}
+                            min="0"
+                            placeholder="0.00"
+                            value={row.spend}
+                            onChange={(e) =>
+                              handleToolChange(
+                                index,
+                                "spend",
+                                e.target.value === "" ? "" : parseFloat(e.target.value) || 0
+                              )
+                            }
+                          />
+                        </div>
+                      </div>
 
+                      {/* 5. Tool Specific Use Case */}
+                      <div className="col-md-2 col-12 mb-2 mb-md-0">
+                        <label className="d-md-none text-muted small fw-bold font-monospace uppercase mb-1 d-block" style={{ fontSize: "10px" }}>Use Case</label>
+                        <select
+                          className="form-select border shadow-sm"
+                          style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--text-h)", fontSize: "14px", borderRadius: "8px" }}
+                          value={row.useCase}
+                          onChange={(e) => handleToolChange(index, "useCase", e.target.value)}
+                        >
+                          <option value="coding">💻 Coding Focus</option>
+                          <option value="writing">✍️ Content/Writing</option>
+                          <option value="data">📊 Analytics/Data</option>
+                          <option value="research">🔍 Search/Research</option>
+                          <option value="mixed">🔄 General Mixed</option>
+                        </select>
+                      </div>
+
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* LIVE TALLY / TOTALS PANEL */}
-            <div className="card p-4 border-0 rounded-4 mb-4 text-start shadow-sm" style={{ background: "var(--accent-bg)", border: "1px solid var(--accent-border) !important" }}>
+            <div className="card glass-card p-4 border-0 rounded-4 mb-4 text-start">
               <div className="row align-items-center">
                 <div className="col-md-6 mb-3 mb-md-0 font-monospace">
                   <span className="small text-muted uppercase tracking-wide">LIVE_LEDGER_TALLY</span>
@@ -385,7 +424,7 @@ const SpendForm = () => {
                   </small>
                 </div>
                 <div className="col-md-6 text-md-end">
-                  <button type="submit" className="btn btn-primary btn-lg px-5 fw-bold rounded-3 shadow" style={{ background: "var(--accent)", border: "0" }}>
+                  <button type="submit" className="btn btn-primary btn-lg px-5 fw-bold rounded-3 shadow-lg gradient-cta" style={{ border: "0" }}>
                     Run LedgerAI Audit
                   </button>
                 </div>
